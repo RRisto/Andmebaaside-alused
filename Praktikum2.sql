@@ -1,3 +1,7 @@
+SELECT eesnimi, perenimi FROM isik;
+SELECT DISTINCT eesnimi FROM isik;
+SELECT DISTINCT eesnimi, perenimi FROM isik ;
+
 SELECT DISTINCT  klubi FROM isik;
 SELECT nimi, 0, CURRENT DATE, NULL FROM klubi;
 
