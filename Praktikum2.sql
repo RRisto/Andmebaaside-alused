@@ -28,7 +28,7 @@ SELECT* FROM isik WHERE eesnimi LIKE '_alle';
 SELECT * FROM isik WHERE eesnimi LIKE'a__[aeiouõäöü]%';
 SELECT * FROM isik WHERE id  LIKE'[8-9][1,3-4]';
 --LIKE ohud
-SELECT* FROM klubi WHERE nimi LIKE 'valge mask';
+SELECT* FROM klubi WHERE nimi LIKE 'valge mask'; --
 SELECT* FROM klubi WHERE nimi= 'valge mask';
 SELECT * FROM klubi WHERE nimi LIKE 'valge mask%'; --kasutab indeksit
 SELECT * FROM klubi WHERE nimi LIKE '%valge mask'; --ei kasuta indeksit
@@ -50,7 +50,7 @@ SELECT eesnimi, perenimi, klubi, klubi.id, klubi.nimi FROM isik, klubi WHERE ees
 SELECT eesnimi, perenimi, klubi, klubi.id, klubi.nimi FROM isik, klubi WHERE eesnimi= 'Henno';
 --Selgem
 SELECT eesnimi, perenimi, klubi, klubi.id,klubi.nimi FROM isik, klubi WHERE perenimi= 'Hiis'AND isik.klubi= klubi.id;
---WHERE vs JOIN
+--WHERE vs JOIN (joini puhul antakse viga kui on mitu välisvõtit, where puhul ei anta)
 SELECT eesnimi, perenimi, klubi, klubi.id,klubi.nimi FROM isik JOIN klubi ON isik.klubi = klubi.id WHERE perenimi =  'Hiis';
 SELECT eesnimi, perenimi, klubi, klubi.id,klubi.nimi FROM isik KEY JOIN klubi WHERE perenimi = 'Hiis';
 --AGA, kui on mitu välisvõtit samasse tabelisse:
