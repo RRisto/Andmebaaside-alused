@@ -2,17 +2,12 @@ SELECT eesnimi FROM isik WHERE len(eesnimi)<6 GROUP BY eesnimi HAVING count(eesn
 SELECT eesnimi, perenimi FROM isik;
 SELECT DISTINCT eesnimi FROM isik;
 SELECT DISTINCT eesnimi, perenimi FROM isik ;
-
-SELECT DISTINCT  klubi FROM isik;
-SELECT nimi, 0, CURRENT DATE, NULL FROM klubi;
-
+SELECT DISTINCT klubi FROM isik;
+SELECT nimi, 0, CURRENT DATE, NULL FROM klubi; --konstandid
 SELECT perenimi ||', '|| eesnimi, klubi + id FROM isik; 
 SELECT perenimi +', '+eesnimi, klubi+id FROM isik;
-
-SELECT IF eesnimi='Maria' THEN '***'ELSE eesnimi ENDIF, perenimi FROM isik;
-
+SELECT IF eesnimi='Maria' THEN '***'ELSE eesnimi ENDIF, perenimi FROM isik; --IF
 SELECT LEFT (eesnimi,1),SUBSTRING(perenimi, 2, 4),YEAR(CURRENT DATE ) FROM isik;
-
 ---agregeerivad funktsioonid
 SELECT COUNT(*) FROM isik; --kirjete arv isikute tabelis
 SELECT COUNT(DISTINCT eesnimi) FROM isik;
