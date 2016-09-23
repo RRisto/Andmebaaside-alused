@@ -45,7 +45,7 @@ FORMAT ASCII DELIMITED BY '\x09';
 ALTER TABLE turniir RENAME nimetus TO nimi;
 
 ALTER TABLE klubi ADD asukoht varchar(50) NOT NULL DEFAULT 'Tartu'
-
+--kitsenduse muutmine
 ALTER TABLE isik ADD CONSTRAINT un_nimi UNIQUE (eesnimi, perenimi);
 ALTER TABLE isik DROP CONSTRAINT un_nimi;
 ALTER TABLE partii ADD CONSTRAINT vastavus CHECK (valge_tulemus+ musta_tulemus= 2);
@@ -57,22 +57,16 @@ UPDATE klubi SET asukoht70 = asukoht;
 ALTER TABLE klubi DROP asukoht;
 ALTER TABLE klubi RENAME asukoht70 TO asukoht;
 
-ALTER TABLE Partii DROP Kokkuvote; --andis millegi pärast erroro kui see alles jäi
+ALTER TABLE Partii DROP Kokkuvote; --andis millegi pärast errori kui see alles jäi
 
 INPUT INTO Partii FROM 'C:\Users\Risto\Documents\Infotehnoloogia mitteinformaatikutele\Andmebaaside alused\Prakitkum1\partii.txt'
 FORMAT ASCII DELIMITED BY '\x09'  (Turniir, Algushetk, Lopphetk, Valge, Must, Valge_tulemus, Musta_tulemus);
 ALTER TABLE Partii ADD Kokkuvote varchar(5000) DEFAULT NULL --loon lihtsalt uuesti muutuja Kokkuvõte
-
+--neli välisvõtit
 ALTER TABLE isik ADD CONSTRAINT fk_isik_2_klubi 
 FOREIGN KEY (klubi) 
 REFERENCES klubi(id) 
 ON DELETE RESTRICT ON UPDATE CASCADE;
-
---neli välisvõtit
---ALTER TABLE isik ADD CONSTRAINT fk_isik_2_klubiNimi
---FOREIGN KEY (Klubi) 
---REFERENCES klubi(Id) 
---ON DELETE RESTRICT ON UPDATE CASCADE;
 
 --Partii -> Turniir –nii, et turniiri kustutamisel kaoksid kõik selle turniiri partiid
 ALTER TABLE Partii ADD CONSTRAINT fk_partii_2_turniir
@@ -94,7 +88,6 @@ ON DELETE RESTRICT ON UPDATE CASCADE;
 
 --kontroll, peab andma vea, kui piirangud töötavad
 DELETE FROM klubi WHERE Nimi='Ajurebend'; 
-
 --kontroll, peaks muutma ka isikute tabeli klubi id-d
 --UPDATE klubi SET Id='100' WHERE Id='51';
 --kontroll, peaks deletima ka tabelist turniir kõik id-ga 41 turniiri partiid

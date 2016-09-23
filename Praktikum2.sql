@@ -1,3 +1,4 @@
+SELECT eesnimi FROM isik WHERE len(eesnimi)<6 GROUP BY eesnimi HAVING count(eesnimi)>1 ORDER BY eesnimi 
 SELECT eesnimi, perenimi FROM isik;
 SELECT DISTINCT eesnimi FROM isik;
 SELECT DISTINCT eesnimi, perenimi FROM isik ;
