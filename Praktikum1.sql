@@ -57,10 +57,11 @@ UPDATE klubi SET asukoht70 = asukoht;
 ALTER TABLE klubi DROP asukoht;
 ALTER TABLE klubi RENAME asukoht70 TO asukoht;
 
-ALTER TABLE Partii DROP Kokkuvote;
+ALTER TABLE Partii DROP Kokkuvote; --andis millegi pärast erroro kui see alles jäi
 
 INPUT INTO Partii FROM 'C:\Users\Risto\Documents\Infotehnoloogia mitteinformaatikutele\Andmebaaside alused\Prakitkum1\partii.txt'
 FORMAT ASCII DELIMITED BY '\x09'  (Turniir, Algushetk, Lopphetk, Valge, Must, Valge_tulemus, Musta_tulemus);
+ALTER TABLE Partii ADD Kokkuvote varchar(5000) DEFAULT NULL --loon lihtsalt uuesti muutuja Kokkuvõte
 
 ALTER TABLE isik ADD CONSTRAINT fk_isik_2_klubi 
 FOREIGN KEY (klubi) 

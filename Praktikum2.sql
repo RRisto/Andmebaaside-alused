@@ -12,7 +12,7 @@ SELECT IF eesnimi='Maria' THEN '***'ELSE eesnimi ENDIF, perenimi FROM isik;
 
 SELECT LEFT (eesnimi,1),SUBSTRING(perenimi, 2, 4),YEAR(CURRENT DATE ) FROM isik;
 
----agregeerivad funktsiionid
+---agregeerivad funktsioonid
 SELECT COUNT(*) FROM isik; --kirjete arv isikute tabelis
 SELECT COUNT(DISTINCT eesnimi) FROM isik;
 SELECT MIN(algushetk), MAX(lopphetk) FROM partii;
