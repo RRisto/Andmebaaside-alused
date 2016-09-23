@@ -77,7 +77,8 @@ WHERE EXISTS(
 	WHERE Partii.valge= Isik.id 
 	AND Isik.eesnimi='Arvo') 
 GROUP BY nimi;
---11. Leida kõigi Mariade mustadega mängitud mängudest saadud punktide arv (tulemus = 2 on võit ja annab 1 punkti, tulemus = 1 on viik ja annab pool punkti).
+--11. Leida kõigi Mariade mustadega mängitud mängudest saadud punktide arv (tulemus = 2 on võit ja annab 1 punkti, 
+--tulemus = 1 on viik ja annab pool punkti).
 SELECT SUM(
 	CASE WHEN musta_tulemus=2 THEN 1 
 	WHEN musta_tulemus=1 THEN 0.5 
