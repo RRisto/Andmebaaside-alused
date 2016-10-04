@@ -9,7 +9,7 @@ eesnimi ASC;
 SELECT eesnimi, perenimi 
 FROM Isik
 JOIN Klubi
-ON Klubi.id=Isik.klubi
+ON Klubi.id=Isik.klubi --võib olla ka WHERE Klubi.id=Isik.klubi
 WHERE Klubi.nimi= 'Laudnikud'
 ORDER BY perenimi ASC, 
 eesnimi ASC;
