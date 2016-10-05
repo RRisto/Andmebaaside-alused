@@ -1,0 +1,7 @@
+--1. Luua vaade v_turniiripartii (turniir_nimi, partii_id, partii_algus, partii_lopp).
+--2. Luua vaade v_klubipartiikogus (klubi_nimi, partiisid)partiisid = selliste partiide arv, kus kas valge või must mängija on klubi liige.
+--3. Luua vaade v_punkt (partii, turniir, mangija, varv, punkt),kus oleksid kõigi mängijate kõigi partiide jooksul saadud punktid 
+--(viitega partiile ja turniirile) koos värviga (valge (V), must (M)). (Vaata järgnevat näidet).
+--4. Vaate v_punkt ja vaate v_mangija põhjal teha vaade v_edetabel(mangija, turniir, punkte), kus veerus mangija on 
+--mängija nimi (v_mangija.nimi) ja veerus turniir on turniiri ID. Punkte arvutatakse iga turniiri jaoks (mängija punktid sellel turniiril).
+--5. Leida (teha päring) turniiri “Kolme klubi kohtumine” (turniiri ID = 41) edetabeli saamiseks (suurema punktiarvuga mängija eespool).
