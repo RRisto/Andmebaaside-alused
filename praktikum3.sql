@@ -6,7 +6,7 @@ WHERE klubi= 54;
 CREATE VIEW v_klubi54pisi(eesnimi,perenimi) AS
 SELECT eesnimi, perenimi FROM isik
 WHERE klubi= 54;
---Ühendame isikutabelis ja klubitabeli: Klubi nimi, klubi id, isiku nimi ja id
+--Ühendame isikutabeli ja klubitabeli: Klubi nimi, klubi id, isiku nimi ja id
 CREATE VIEW v_mangija(klubi_nimi, klubi_id, isik_nimi, isik_id) AS
 SELECT klubi.nimi, klubi.id, isik.perenimi || ', ' || isik.eesnimi, isik.id 
 FROM isik 
@@ -71,8 +71,8 @@ FROM partii;
 
 DELETE FROM viis
 WHERE nr > 5;
---Tekitame kõigile tudengitele erinevused tabelisse partii  (omad andmed).  
---Selleks:Lisame uue kirje (uue turniiri) tabelisse turniir.Olgu uus turniiri numbriga 47 (id=47) Lisame selle kirje (nn käsitsi)
+--Tekitame kõigile tudengitele erinevused tabelisse partii (omad andmed).  
+--Selleks: Lisame uue kirje (uue turniiri) tabelisse turniir. Olgu uus turniiri numbriga 47 (id=47) Lisame selle kirje (nn käsitsi)
 INSERT INTO turniir (id, nimi, toimumiskoht, alguskuupaev, loppkuupaev)
 VALUES (47, 'Kuldkarikas 2010', 'Elva', '2010-10-14', '2010-10-14');
 --Muutsime meelt: turniiri nimi olgu Plekkkarikas
@@ -82,7 +82,7 @@ WHERE id = 47;
 --Lisame juurde kõigi mängijate omavahelised partii.(va endaga) ja mängijatega klubist 57, algushetke võtame juhusliku
 INSERT INTO partii (turniir, algushetk, valge, must)
 SELECT turniir.id, dateadd(minute,1+rand()*10, dateadd(hour, 8+rand()*10,turniir.alguskuupaev)), v.id, m.id
-FROM turniir, isikv, isikm
+FROM turniir, isik v, isik m
 WHERE turniir.id = 47 AND v.id <> m.id AND
 v.klubi <> 57 AND m.klubi<> 57;
 --Väärtustame (juhuslikult) veerud Lõpphetk ja paneme paika juhuslik võitja
