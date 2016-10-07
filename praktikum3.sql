@@ -4,7 +4,8 @@ SELECT*FROM isik
 WHERE klubi= 54;
 --Lõige isikutabelist: vaid isikute nimed klubist numbriga 54
 CREATE VIEW v_klubi54pisi(eesnimi,perenimi) AS
-SELECT eesnimi, perenimi FROM isik
+SELECT eesnimi, perenimi 
+FROM isik
 WHERE klubi= 54;
 --Ühendame isikutabeli ja klubitabeli: Klubi nimi, klubi id, isiku nimi ja id
 CREATE VIEW v_mangija(klubi_nimi, klubi_id, isik_nimi, isik_id) AS
@@ -115,7 +116,7 @@ WHERE p.algushetk>= q.algushetk AND
 	p.must=q.valge OR 
 	p.must=q.must) AND
 	q.turniir= p.turniir)  AND
-	turniir= 47;	
+turniir= 47;	
 --Peale koduse ülesande tegemist on võimalik sooritada alljärgnev päring Näha äsja sisestatud turniiri viite paremat
 SELECT TOP 5 number(*), mangija, punkte
 FROM v_edetabel
