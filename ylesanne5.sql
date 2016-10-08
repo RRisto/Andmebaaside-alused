@@ -20,7 +20,8 @@ SELECT klubi_nimi, SUM(arv) FROM(
     JOIN Klubi
     ON Klubi.id=Isik.klubi
     GROUP BY Klubi.nimi
-) x  GROUP BY klubi_nimi ORDER BY SUM(arv) DESC;
+) AS  klubipartiikogus 
+GROUP BY klubi_nimi ORDER BY SUM(arv) DESC;
 -- eelmine oli algne ja kohmakas variant, poole lühem ja selgem variant:
 CREATE VIEW v_klubipartiikogus (klubi_nimi, partiisid) AS
 SELECT klubi_nimi, SUM(arv) FROM(
@@ -30,7 +31,8 @@ SELECT klubi_nimi, SUM(arv) FROM(
     JOIN Klubi
     ON Klubi.id=Isik.klubi 
     GROUP BY klubi.nimi
-) x  GROUP BY klubi_nimi ORDER BY SUM(arv) DESC;
+) AS  klubipartiikogus  
+GROUP BY klubi_nimi ORDER BY SUM(arv) DESC;
 --3. Luua vaade v_punkt (partii, turniir, mangija, varv, punkt),kus oleksid kõigi mängijate kõigi partiide jooksul saadud punktid 
 --(viitega partiile ja turniirile) koos värviga (valge (V), must (M)). (Vaata järgnevat näidet).
 CREATE VIEW  v_punkt (partii, turniir, mangija, varv, punkt) AS
