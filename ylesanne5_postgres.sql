@@ -1,3 +1,4 @@
+--100% sama, mis mySQL
 --1. Luua vaade v_turniiripartii (turniir_nimi, partii_id, partii_algus, partii_lopp).
 CREATE VIEW  v_turniiripartii (turniir_nimi, partii_id, partii_algus, partii_lopp) AS
 SELECT Turniir.nimi, Partii.id, Partii.algushetk, Partii.lopphetk
