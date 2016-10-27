@@ -1,12 +1,24 @@
 --Deterministlik funktsioon
 --Funktsioon kahe arvu liitmiseks:
-CREATE FUNCTION f_liida(a_arv1 integer,a_arv2 integer) 
+CREATE FUNCTION f_liida(a_arv1 INTEGER,a_arv2 INTEGER) 
 RETURNS INTEGER
 DETERMINISTIC
 BEGIN 
 DECLARE summa INTEGER;
-SET summa = a_arv1 + a_arv2;
+SET summa = a_arv1 + a_arv2; --set kui andmed pole meie andmebaasist (funkts sees pole päringut)
 RETURN summa;
+END;
+--teine viis
+CREATE FUNCTION f_liida(a_arv1 INTEGER,a_arv2 INTEGER) 
+RETURNS INTEGER
+BEGIN 
+RETURN a_arv1 + a_arv2;
+END;
+--kui tahan olemasolevat muuta
+ALTER FUNCTION f_liida(a_arv1 INTEGER,a_arv2 INTEGER) 
+RETURNS INTEGER
+BEGIN 
+RETURN a_arv1 + a_arv2;
 END;
 --Funktsioon, mis vastavalt id väärtusele tagastab eesnime 
 CREATE FUNCTION f_eesnimi(a_id integer)
@@ -14,7 +26,7 @@ RETURNS varchar(50)
 NOT DETERMINISTIC
 BEGIN
 DECLARE d_enimi varchar(50);
-SELECT eesnimi INTO d_enimi
+SELECT eesnimi INTO d_enimi --päringu puhul väärtuse omistamine
 FROM isik
 WHERE id = a_id;
 RETURN d_enimi;
@@ -40,7 +52,7 @@ SET a_id= i_id;
 END;
 --Meil on vaja muutujat, kuhu salvestatakse uue klubi id
 --•Pöördume protseduuri poole
---•aatame milline on uue klubi id väärtus 
+--•vaatame milline on uue klubi id väärtus --oluline osa
 CREATE VARIABLE uusid INTEGER;
 CALL sp_uus_klubi('Valga Valge', 'Valga',uusid);
 SELECT uusid;
