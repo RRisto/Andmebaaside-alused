@@ -19,7 +19,7 @@ UPDATE klubi SET asula = (SELECT id FROM asula WHERE asula.nimi = klubi.asukoht)
 ALTER TABLE Klubi ADD CONSTRAINT fk_klubi_2_asula 
 FOREIGN KEY (asula) 
 REFERENCES Asula(id) 
-ON DELETE RESTRICT ON UPDATE CASCADE;
+ON DELETE CASCADE ON UPDATE CASCADE;
 --kontroll
 select klubi.asukoht, asula.nimi from klubi join asula on klubi.asula = asula.id;
 --6.Lisada tabelisse Turniir veerg Asula (integer).
@@ -30,7 +30,7 @@ UPDATE Turniir SET asula = (SELECT id FROM asula WHERE asula.nimi = turniir.toim
 ALTER TABLE Turniir ADD CONSTRAINT fk_turniir_2_asula 
 FOREIGN KEY (asula) 
 REFERENCES Asula(id) 
-ON DELETE RESTRICT ON UPDATE CASCADE;
+ON DELETE CASCADE ON UPDATE CASCADE;
 --kontroll
 select turniir.toimumiskoht, asula.nimi from turniir join asula on turniir.asula = asula.id;
 --9.Luua vaade v_asulaklubisid (asula_id, asula_nimi, klubisid), mis annaks asulate klubide arvud.
@@ -40,7 +40,7 @@ FROM klubi
 GROUP BY asula, asukoht
 --10. Luua vaade v_asulasuurus (asula_id, asula_nimi, mangijaid), mis annaks asulate mängijate arvud.
 --Kontrollküsimus: kas võib tekkida kirje, kus mangijaid = 0?
-CREATE VIEW v_asulasuurus (asula_id, asula_nimi, mangijaid) AS
+CREATE VIEW v_asulasuurus(asula_id, asula_nimi, mangijaid) AS
 SELECT klubi.asula, klubi.asukoht, COUNT(*)  FROM 
 isik JOIN klubi 
 ON isik.klubi=klubi.id
@@ -54,11 +54,12 @@ END;
 --12. Luua triger, mis klubi lisamise järel lisaks asukoha asula tabelisse, kui seda seal pole, ning väärtustaks klubi tabelis asula välja vastava asula
 --ID’ga, tg_lisa_klubi.
 CREATE TRIGGER tg_lisa_klubi AFTER INSERT ON Klubi
-REFERENCING NEW AS uus FOR EACH ROW
+REFERENCING NEW AS uus 
+FOR EACH ROW
 WHEN ((SELECT COUNT(*) FROM Asula WHERE Nimi = uus.asukoht) = 0)
 BEGIN
 DECLARE l_id integer;
-INSERT INTO Asula (Nimi) VALUES (uus.asukoht);
+INSERT INTO Asula(Nimi) VALUES (uus.asukoht);
 SELECT @@identity INTO l_id;
 UPDATE Klubi SET Asula = l_id WHERE Id = uus.id;
 END
@@ -75,9 +76,9 @@ DELETE FROM Asula WHERE Id = vana.Asula;
 END IF;
 END
 --14. Lisada klubi “Kiire Aju” asukohaga Viljandi.
-INSERT INTO Klubi (Nimi, Asukoht) VALUES ('Kiire Aju', 'Viljandi');
+INSERT INTO Klubi(Nimi, Asukoht) VALUES ('Kiire Aju', 'Viljandi');
 --15. Lisada klubi “Kambja Kibe” asukohaga Kambja.
-INSERT INTO Klubi (Nimi, Asukoht) VALUES ('Kambja Kibe', 'Kambja');
+INSERT INTO KlubiNimi, Asukoht) VALUES ('Kambja Kibe', 'Kambja');
 --16. Teha päring asula tabelisse, et veenduda, mis asulad on olemas
 SELECT DISTINCT nimi FROM asula;
 --17. Kustutada klubid maha: call sp_kustuta_klubi(‘Kiire Aju’), call sp_kustuta_klubi(‘Kambja Kibe’)
@@ -89,14 +90,12 @@ SELECT DISTINCT nimi FROM asula;
 INSERT INTO Klubi (Nimi, Asukoht) VALUES ('SQL klubi', 'Tartu');
 --20. Lisada tabelisse Isik iseennast. Klubiks panna “SQL klubi”
 INSERT INTO Isik (Eesnimi, Perenimi, Isikukood, Klubi)
-VALUES ('Risto', 'Hinno', 38705194711,
-(SELECT Id FROM Klubi WHERE Nimi = 'SQL klubi'));
+VALUES ('Risto', 'Hinno', '38705194711',(SELECT Id FROM Klubi WHERE Nimi = 'SQL klubi'));
 --21. Proovida kustutada klubi sp_kustuta_klubi(‘SQL klubi’) - ei tohi õnnestuda(miks?)
 sp_kustuta_klubi('SQL klubi')
 ---Isikute tabelil on välisvõti, mis viitab klubi tabelile: klubi ei tohi sisaldada ühtegi isikut, et seda saaks kustutada.
 --22. Luua klubi kustutamisele trigger (tg_kustuta_klubi_isikutega), mis kustutaks maha klubi isikud. NB! Kui isikul on partiisid, siis isikut ei õnnestu kustutada ja seega ei õnenstu ka klubi kustutada. Nii peabki olema! call sp_kustuta_klubi(“Laudnikud”) - ei tohi midagi halba teha (kui kõik seosed on
 --varem õigesti loodud).Aga call sp_kustuta_klubi(“SQL klubi”) peab kustutama nii klubi kui ka selle ühe liikme. 
---!!!
 CREATE TRIGGER tg_kustuta_klubi_isikutega BEFORE DELETE ON Klubi
 REFERENCING OLD AS vana FOR EACH ROW
 BEGIN
