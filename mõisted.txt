@@ -1,0 +1,44 @@
+rekursiivne seos - seos sama olemitüübi eksemplari vahel
+domineeriv olem, alluv olem
+seose aarsus
+seose totaalsus
+mittelõikuvad olemite hulgad
+olem
+seos
+abjs
+andmed (nt Näide: tudengi testitulemus arvuna)
+informatsioon (nt kursuse keskmine testi tulemus)
+võti, supervõti
+nõrk olem, tugev olem
+primaarne võti
+võtmekandidaat
+eksistentsiseos ja -kitsendus
+andmemudel
+funktsionaalne mudel
+DDL
+DML
+kooskõlaline
+andmebaas - relatsioonide hulk, Käsitletava valdkonna informatsiooniline mudel
+unaarsete op. priorteet kõrgem
+järk
+relatsioonalgebras ei ole aritmeetikat
+korteež
+seisund
+olemitüüp võib olla piiramatus arvus seostes
+kitsendus
+UML:
+	+ avalik, 
+	- privaatne, 
+	# - kaitstud,
+	0 -võib puududa.
+ABJS klassid
+	-info omapära
+	-tsent. hajsuad
+	-andnemudeli järgi
+Peale relatsioonide relatsioonilises mudelis muid vahendeid andmete esitamiseks ei ole! Nii olemid kui nendevahelised seosed  - mõlemad 
+esitatakse relatsioonide abil.
+Tabelit, veergudega A 1, A2, … An ja lahtrites vastavate väärtustega, nimetame relatsiooni seisundiks
+hulgas ei ole korduvaid elemente+Iga rea (kirje) antud tunnuse tüüp on relatsiooni kirjelduses kasutatud vastava 
+väärtushulgas Di esindatud mõni väärtus. Väärtushulgad Di esindavadki antud tunnuse elementaarse andmetüübiga seotud kõikvõimalike väärtuste hulki.
+
+Need avaldised moodustavad relatsioonilise andmebaasi ühe päringukeele
