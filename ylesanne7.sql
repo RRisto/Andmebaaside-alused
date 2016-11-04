@@ -63,8 +63,9 @@ INSERT INTO Asula(Nimi) VALUES (uus.asukoht);
 SELECT @@identity INTO l_id;
 UPDATE Klubi SET Asula = l_id WHERE Id = uus.id;
 END
-
-CREATE TRIGGER tg_lisa_klubi AFTER INSERT, UPDATE ON Klubi
+--see veel ei tööta
+CREATE TRIGGER tg_lisa_klubi AFTER 
+INSERT, UPDATE ON Klubi
 REFERENCING NEW AS uus 
 FOR EACH ROW
 WHEN (asula.nimi<>klubi.asukoht)
