@@ -42,3 +42,9 @@ hulgas ei ole korduvaid elemente+Iga rea (kirje) antud tunnuse tüüp on relatsi
 väärtushulgas Di esindatud mõni väärtus. Väärtushulgad Di esindavadki antud tunnuse elementaarse andmetüübiga seotud kõikvõimalike väärtuste hulki.
 
 Need avaldised moodustavad relatsioonilise andmebaasi ühe päringukeele
+- Funktsioonid (üks väljund)
+– Ilma väljundita Protseduurid
+– Tabel-väljundiga Protseduurid
+
+Lihtväärtus tähendab, et väärtus ise ei ole antud tasandil struktuurne suurus: hulk, jada, kirje vms.   Lihtväärtuseks loeme näiteks: eesnimi, 
+matrikli number, ainepunktide arv, aine kood jne.

@@ -16,3 +16,10 @@ BEGIN UPDATE turniir
 SET loppkuupaev=alguskuupaev
 WHERE id = uus.id;
 END
+--kui tahad trigereid näha
+SELECT * FROM sysobjects
+WHERE TYPE = 'TR'
+--testime, peaks loppkuupaeva tegema samaks, mis alguskuupäev
+INSERT INTO turniir(nimi, toimumiskoht, alguskuupaev, loppkuupaev) VALUES ('proov','Tapa', '2010-10-14','2010-10-10')
+--kustutame ka rea ära
+DELETE FROM turniir WHERE nimi='proov'
