@@ -95,3 +95,22 @@ DELETE FROM klubi WHERE Nimi='Ajurebend';
 
 --kui tahad vaadata, mis tabelid on andmebaasis
 SELECT * FROM sysobjects WHERE type = 'U'
+--tabel inimesed
+CREATE TABLE inimesed (
+eesnimi varchar(30) not null,
+perenimi varchar(100) not null,
+sugu char(1) not null check (sugu in ('m', 'n')),
+synnipaev date not null,
+sisestatud datetime not null default current timestamp,
+isikukood varchar(11),
+CONSTRAINT pk_inimesed PRIMARY KEY (isikukood)
+);
+--lisame väärtused
+INSERT INTO inimesed(eesnimi, perenimi, sugu, synnipaev , isikukood)
+VALUES ('Juku', 'Mets', 'M', '1980-02-04', '38002042715');
+
+UPDATE inimesed SET eesnimi = 'Jüri' WHERE eesnimi = 'Juku';
+--see annab vea
+INSERT INTO inimesed (eesnimi, perenimi, sugu, synnipaev , isikukood) VALUES ('Mati', 'Karu', 'M', '1985-02-04', '38002042715');
+DELETE inimesed WHERE eesnimi = 'Juku';
+DELETE inimesed WHERE eesnimi = 'Jüri';

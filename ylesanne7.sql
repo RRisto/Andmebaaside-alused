@@ -103,7 +103,7 @@ BEGIN
 DELETE FROM Isik WHERE Klubi = vana.Id;
 END
 --23. Lisada ennast tabelisse inimesed.
-
+INSERT INTO inimesed(eesnimi, perenimi, sugu, synnipaev, isikukood) VALUES ('Risto', 'Hinno', 'M', '1987-05-19', '38705194711')
 --24. Luua vaated ülesande 4 päringutele 1 kuni 12. Vaate nimeks panna V_<päringu number>. Näiteks V_1, V_2, … , V_12
 CREATE VIEW V_1(eesnimi, perenimi) AS
 SELECT eesnimi, perenimi 

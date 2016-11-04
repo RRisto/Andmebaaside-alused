@@ -23,3 +23,5 @@ WHERE TYPE = 'TR'
 INSERT INTO turniir(nimi, toimumiskoht, alguskuupaev, loppkuupaev) VALUES ('proov','Tapa', '2010-10-14','2010-10-10')
 --kustutame ka rea ära
 DELETE FROM turniir WHERE nimi='proov'
+--syseventtype
+select * from syseventtype
