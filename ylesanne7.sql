@@ -63,17 +63,6 @@ INSERT INTO Asula(Nimi) VALUES (uus.asukoht);
 SELECT @@identity INTO l_id;
 UPDATE Klubi SET Asula = l_id WHERE Id = uus.id;
 END
---see veel ei tööta
-CREATE TRIGGER tg_lisa_klubi AFTER 
-INSERT, UPDATE ON Klubi
-REFERENCING NEW AS uus 
-FOR EACH ROW
-WHEN (asula.nimi<>klubi.asukoht)
-BEGIN
-	INSERT INTO asula(nimi) VALUES (klubi.asukoht);
-	UPDATE klubi SET asula=asula.id
-END	
-
 --13.Luua triger, mis klubi kustutamisel kontrollib, kas klubi asula on kuskil kasutuses (teiste klubide juures või turniiride juures), ja kui pole, siis kustutab ka asula maha. tg_kustuta_klubi.
 CREATE TRIGGER tg_kustuta_klubi AFTER DELETE ON Klubi
 REFERENCING OLD AS vana FOR EACH ROW
