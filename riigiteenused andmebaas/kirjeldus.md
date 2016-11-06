@@ -1,3 +1,3 @@
-Avalike teenuste kataloog
+##Avalike teenuste kataloog
 
 Eesti avalikul sektoril on vaja avalike teenuste kataloogi. Kataloogi hakatakse kasutama avalike teenuste (sisuliselt teenused, kus avaliku sektori asutuste ja inimeste/juriidiliste isikute vahel toimub kontakt – näiteks lubade taotlemine) terviklikumaks juhtimiseks.  Avalike teenuste kataloogi on vaja Majandus- ja Kommunikatsiooniministeeriumi infoühiskonna teenuste arendamise osakonnal, kes kujundab vastavat poliitikat. Neid huvitab, et kataloogis oleks olemas järgneva info: teenuse nimi, lühikirjeldus, viited õigusaktidele, mis teenuse osutamist reguleerib,  teenuse omaniku andmed, viide asutusele, kes teenust haldab ning baasstatistika teenuste kohta
