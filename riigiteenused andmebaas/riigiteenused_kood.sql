@@ -29,9 +29,9 @@ CREATE TABLE kanal (
   link VARCHAR(300) NOT NULL,
   tyyp VARCHAR(50) NOT NULL check (tyyp in ('Veebileht', 'Letiteenus büroos', 'E-post','E-iseteenindus','Post','Nutirakendus','Telefon','Kliendijuures', 'Faks')),
   osutamistearv INTEGER,
-  rahulolu FLOAT,
-  ajakulu FLOAT,
-  hind FLOAT,
+  rahulolu INTEGER,
+  ajakulu INTEGER,
+  hind INTEGER,
   PRIMARY KEY (teenus, tyyp),
   CONSTRAINT fk_kanal_teenus1
     FOREIGN KEY (teenus)
