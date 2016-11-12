@@ -72,3 +72,33 @@ FORMAT ASCII DELIMITED BY ';'  (link,tyyp);
 INPUT INTO teenus_has_regulatsioon FROM 'C:\Users\Risto\Documents\Infotehnoloogia mitteinformaatikutele\Andmebaaside alused\Riigiteenused\teenus_has_regulatsioon.csv'
 FORMAT ASCII DELIMITED BY ';'  (regulatsioon_link,teenus_id);
 
+--triggerid, et vältida mõttetuid kirjeid andmebaasis
+--kui kustutatakse asutus, siis kaovad selle asutuse omanikud ja teenused
+CREATE TRIGGER tg_asutus_delete     
+  AFTER DELETE ON asutus
+	REFERENCING OLD AS vana  
+  FOR EACH ROW     
+BEGIN
+  DELETE FROM omanik where asutus = vana.registrikood;
+  DELETE FROM teenus where asutus = vana.registrikood;
+END
+--teenuse kustutamisel kustutatakse ära teenuse kanalid ja teenus_has_regulatsioon kirjed
+CREATE TRIGGER tg_teenus_delete     
+  AFTER DELETE ON teenus 
+REFERENCING OLD AS vana  
+  FOR EACH ROW     
+BEGIN
+  DELETE FROM kanal where teenus = vana.id;
+  DELETE FROM teenus_has_regulatsioon where teenus_id = vana.id;
+END
+--trigger, kui kanal kustutatakse, kontrollib, kas sama teenusega on veel kanaleid. Kui enam pole, kustutab teenuse ära
+CREATE TRIGGER tg_kustuta_kanal AFTER DELETE ON kanal
+REFERENCING OLD AS vana FOR EACH ROW
+BEGIN
+DECLARE l_arv1 integer;
+SELECT COUNT(*) INTO l_arv1 FROM kanal WHERE teenus = vana.teenus;
+IF l_arv1 = 0 THEN
+DELETE FROM teenus WHERE Id = vana.teenus;
+END IF;
+END
+
