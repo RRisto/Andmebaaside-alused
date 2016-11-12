@@ -26,7 +26,7 @@ CREATE TABLE teenus (
 
 CREATE TABLE kanal (
   teenus VARCHAR(8) NOT NULL,
-  link VARCHAR(100) NOT NULL,
+  link VARCHAR(300) NOT NULL,
   tyyp VARCHAR(50) NOT NULL check (tyyp in ('Veebileht', 'Letiteenus büroos', 'E-post','E-iseteenindus','Post','Nutirakendus','Telefon','Kliendijuures', 'Faks')),
   osutamistearv INTEGER,
   rahulolu FLOAT,
