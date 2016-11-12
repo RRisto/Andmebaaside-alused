@@ -4,7 +4,7 @@ Eesti avalikul sektoril on vaja avalike teenuste kataloogi. Kataloogi hakatakse 
 - teenuse nimi, 
 - lühikirjeldus, 
 - viited õigusaktidele, mis teenuse osutamist reguleerib, 
-- teenuse omaniku andmed, 
+- teenuse omaniku andmed (nimi, isikukood), 
 - viide asutusele, kes teenust haldab ning 
 - baasstatistika (osutamiste arv, rahulolu, kliendi ajakulu ning asutuse kulu teenuse osutamisel) teenuste kohta kanalite lõikes. 
 
