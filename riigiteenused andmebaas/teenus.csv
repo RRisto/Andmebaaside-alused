@@ -1,3 +1,4 @@
+nimi;kirjeldus;id;registrikood;omanik
 Loomataudide tõrje;Loomataudide tõrje tulenevalt loomataudist ja selle tõrje eeskirjast;VET-022;70000094;
 Loomatervishoiu järelevalve;Loomapidamiskohtade kontroll hindamaks loomapidamise vastavust kehtivatele nõuetele;VET-020;70000094;
 Loomsete kõrvalsaaduste või neist saadud toodete kasutamise või kõrvaldamise erandiks loa taotlemine;Käitleja, kes soovib loomseid kõrvalsaadusi või neist saadud tooteid kõrvaldada või kasutada muul kui loomsete kõrvalsaaduste määruses ettenähtud viisil, on vajalik selliseks tegevuseks Veterinaar- ja Toiduameti luba;VET-018;70000094;48812124711
@@ -402,7 +403,7 @@ Nõustamine;Vähelõimunud püsielanike nõustamine;MEIS-001;90000788;
 Arheoloogiline järelevalve;Mälestisel või muinsuskaitsealal teostatavatel kaevetöödel nõutud arheoloogilise järelevalve läbiviimine.;PARN-010;70001811;
 Vesiviljelusettevõtete otsing;Vesiviljelusettevõtete andmete otsimine ja vaatamine;PRIA-062;70005967;48812124713
 Põllumajandusloomade registris olevate veiste, lammaste ja kitsede avalike andmete XML otsing;Veiste, lammaste ja kitsede avalike andmete XML otsimine ja vaatamine;PRIA-061;70005967;48812124713
-Arhivaalide kauglaenutus;Kauglaenutuse eesmärk on võimaldada Pärnu Muuseumi uurimissaalis töötavatel uurijatel kasutada arhivaale Rahvusarhiivi struktuuriüksustest.;PARN-009;70001811;
+Arhivaalide kauglaenutus;Kauglaenutuse eesmärk on võimaldada Pärnu Muuseumi uurimissaalis töötavatel uurijatel kasutada arhivaale Rahvusarhiivi struktuuriüksustest;PARN-009;70001811;
 Põllumajandusloomade registri statistilised andmed hetkeseisuga;Põllumajandusloomade registri statistiliste andmete vaatamine;PRIA-060;70005967;48812124713
 Veiste, lammaste ja kitsede arvu seis;Hetkeseisuga registris olevate elusloomade arvu vaatamine;PRIA-059;70005967;48812124713
 Hobuslaste registri avalike andmete otsing;Hobuslaste registriandmete otsimine ja vaatamine;PRIA-058;70005967;48812124713

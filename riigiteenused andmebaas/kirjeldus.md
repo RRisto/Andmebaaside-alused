@@ -8,4 +8,4 @@ Eesti avalikul sektoril on vaja avalike teenuste kataloogi. Kataloogi hakatakse 
 - viide asutusele, kes teenust haldab ning 
 - baasstatistika (osutamiste arv, rahulolu, kliendi ajakulu ning asutuse kulu teenuse osutamisel) teenuste kohta kanalite lõikes. 
 
-Kusjuures igal teenusel peab olema vähealt üks kanal (vastasel juhul tuleb teenus andmebaasist kustutada). Igal asutuses võib olla mitu teenust ning mitmeid teenuste omanikke. Iga teenuse omanik on seotud ainult ühe asutusega. Teenuse omanik võib vastutada mitme teenuse eest. Igal teenusel on ainult üks omanik (see võib ka puududa). Igal teenusel võib olla mitu õigusakti, mis reguleerib teenuse osutamist. 
+Kusjuures igal teenusel peab olema vähemalt üks kanal (vastasel juhul tuleb teenus andmebaasist kustutada). Igal asutuses võib olla mitu teenust ning mitmeid teenuste omanikke. Iga teenuse omanik on seotud ainult ühe asutusega. Teenuse omanik võib vastutada mitme teenuse eest. Igal teenusel on ainult üks omanik (see võib ka puududa). Igal teenusel võib olla mitu õigusakti, mis reguleerib teenuse osutamist. 
