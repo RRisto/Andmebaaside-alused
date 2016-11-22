@@ -50,11 +50,18 @@ Lihtväärtus tähendab, et väärtus ise ei ole antud tasandil struktuurne suur
 matrikli number, ainepunktide arv, aine kood jne.
 
 sõltuvuse pere kate
-minimaalne pere ehk kate
-atribuutide hulga sulund
+minimaalne pere ehk kate - Def. Minimaalne pere e. minimaalne kate. Me ütleme, et sõlt uvuste pere F on minimaalne (minimaalne kate) kui:
+a.  Iga sõltuvuse parem pool sisaldab parajasti üht elementi.
+b.  Hulgas F ei leidu sõltuvust X>A mille puhul F-{X>A} oleks ekvivalentne hulgaga F.
+c.  Hulgas F ei leidu sellist sõltuvust X>A ja hulka Z>X, et (F-{X>A})>{Z>A} oleks ekvivalentne hulgaga F.
+Teoreem. Iga sõltuvuste pere omab minimaalset katet.  sõltuvuste hulgal võib olla mitu erinevat minimaalset katet.
+tribuutide hulga sulund - Siis hulga X sulundiks X+ funktsionaalsete sõltuvuste hulga F suhtes nimetatakse kõigi nende atribuutide hulga Y, mille puhul X>Y on tuletatav sõltuvuste hulgast F (s.t. kuulub hulka F+)
+Mistahes F jaoks leidub selline kate G, milles olevate sõltuvuste paremad pooled sisaldavad parajasti üht elementi.
 relatsioonide dekompositsioon
 kadudeta ühend
-sõltuvuste pere säilitamine
+sõltuvuste pere säilitamine - Me ütleme, et dekompositsioon  säilitab pere F, kui hulgast Ri(F) saab tuletada kõik F elemendid.
 esimene normaalkuju
-teine normaalkuju
+teine normaalkuju -Me ütleme, et relatsioon R on teises normaalkujus (2NF), kui ta on esimeses normaalkujus ja mistahes võtme X  ning  mistahes sekundaarse tunnuse A jaoks ei  leidu sellist võtme atribuutide  pärisalamhulka Y > X, et kehtiks Y>A
+Märkus: Relatsioonid, millel on ainult üheelemendilised võimalikud võtmed, on kõik automaatselt teises normaalkujus
 kolmas normaalkuju
+primaarne, sekundaarne atribuutide
