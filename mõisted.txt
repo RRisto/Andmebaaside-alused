@@ -48,3 +48,13 @@ Need avaldised moodustavad relatsioonilise andmebaasi ühe päringukeele
 
 Lihtväärtus tähendab, et väärtus ise ei ole antud tasandil struktuurne suurus: hulk, jada, kirje vms.   Lihtväärtuseks loeme näiteks: eesnimi, 
 matrikli number, ainepunktide arv, aine kood jne.
+
+sõltuvuse pere kate
+minimaalne pere ehk kate
+atribuutide hulga sulund
+relatsioonide dekompositsioon
+kadudeta ühend
+sõltuvuste pere säilitamine
+esimene normaalkuju
+teine normaalkuju
+kolmas normaalkuju
