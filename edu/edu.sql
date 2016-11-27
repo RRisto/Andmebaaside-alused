@@ -215,7 +215,7 @@ SELECT TOP 20 firstname, lastname, AVG(CASE WHEN finalgrade='A' THEN 5
 	WHEN finalgrade='D' THEN 2
 	WHEN finalgrade='E' THEN 1
 	WHEN finalgrade='F' THEN 0 
-	ELSE 0 END) AS arv FROM registration 
+	ELSE NULL END) AS arv FROM registration 
 JOIN person ON registration.personId=person.Id where finalgrade is not null
 GROUP BY firstname, lastname ORDER BY arv DESC;
 
