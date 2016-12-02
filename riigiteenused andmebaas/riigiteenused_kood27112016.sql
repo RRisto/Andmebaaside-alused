@@ -40,7 +40,7 @@ CREATE TABLE moodik (
   osutamistearv INTEGER,
   rahulolu DECIMAL(5,2),
   ajakulu DECIMAL(8,2),
-  hind DECIMAL(10,2),
+  maksumus DECIMAL(10,2),
 	PRIMARY KEY (teenus, kanal_tyyp, aasta),
 	CONSTRAINT fk_moodik_teenus1_kanaltyyp
     FOREIGN KEY (teenus,kanal_tyyp)
@@ -91,7 +91,6 @@ CREATE TABLE teenus_has_riha (
     FOREIGN KEY (viitenumber)
     REFERENCES riha(viitenumber))
 
---see osa on uuendamata!!!!	
 --andmed sisse
 --asutus
 INPUT INTO asutus FROM 'C:\Users\Risto\Documents\Infotehnoloogia mitteinformaatikutele\Andmebaaside alused\Andmebaaside-alused\riigiteenused andmebaas\asutus.csv' SKIP 1
@@ -104,13 +103,28 @@ INPUT INTO teenus FROM 'C:\Users\Risto\Documents\Infotehnoloogia mitteinformaati
 FORMAT ASCII DELIMITED BY ';'  (nimi, kirjeldus,id, asutus, omanik);
 --kanal
 INPUT INTO kanal FROM 'C:\Users\Risto\Documents\Infotehnoloogia mitteinformaatikutele\Andmebaaside alused\Andmebaaside-alused\riigiteenused andmebaas\kanal.csv' SKIP 1
-FORMAT ASCII DELIMITED BY ';'  (teenus, link,tyyp, ajakulu, hind, osutamistearv,rahulolu);
+FORMAT ASCII DELIMITED BY ';'  (teenus, link,tyyp);
+--moodik
+INPUT INTO moodik FROM 'C:\Users\Risto\Documents\Infotehnoloogia mitteinformaatikutele\Andmebaaside alused\Andmebaaside-alused\riigiteenused andmebaas\moodik.csv' SKIP 1
+FORMAT ASCII DELIMITED BY ';'  (teenus, kanal_tyyp, aasta, ajakulu,maksumus,osutamistearv,rahulolu);
 --regulatsioon
 INPUT INTO regulatsioon FROM 'C:\Users\Risto\Documents\Infotehnoloogia mitteinformaatikutele\Andmebaaside alused\Andmebaaside-alused\riigiteenused andmebaas\regulatsioon.csv' SKIP 1
 FORMAT ASCII DELIMITED BY ';'  (link,tyyp);
 --teenus_has_regulatsioon
 INPUT INTO teenus_has_regulatsioon FROM 'C:\Users\Risto\Documents\Infotehnoloogia mitteinformaatikutele\Andmebaaside alused\Andmebaaside-alused\riigiteenused andmebaas\teenus_has_regulatsioon.csv' SKIP 1
 FORMAT ASCII DELIMITED BY ';'  (regulatsioon_link,teenus_id);
+--RIHA
+INPUT INTO riha FROM 'C:\Users\Risto\Documents\Infotehnoloogia mitteinformaatikutele\Andmebaaside alused\Andmebaaside-alused\riigiteenused andmebaas\riha.csv' SKIP 1
+FORMAT ASCII DELIMITED BY ';'  (viitenumber,nimi);
+--teenus_has_riha
+INPUT INTO teenus_has_riha FROM 'C:\Users\Risto\Documents\Infotehnoloogia mitteinformaatikutele\Andmebaaside alused\Andmebaaside-alused\riigiteenused andmebaas\teenus_has_riha.csv' SKIP 1
+FORMAT ASCII DELIMITED BY ';'  (teenus_id,viitenumber);
+--kliendigrupid
+INPUT INTO kliendigrupp FROM 'C:\Users\Risto\Documents\Infotehnoloogia mitteinformaatikutele\Andmebaaside alused\Andmebaaside-alused\riigiteenused andmebaas\kliendigrupp.csv' SKIP 1
+FORMAT ASCII DELIMITED BY ';'  (nimi,kirjeldus);
+--kliendigrupp has teenus
+INPUT INTO kliendigrupp_has_teenus FROM 'C:\Users\Risto\Documents\Infotehnoloogia mitteinformaatikutele\Andmebaaside alused\Andmebaaside-alused\riigiteenused andmebaas\kliendigrupp_has_teenus.csv' SKIP 1
+FORMAT ASCII DELIMITED BY ';'  (teenus_id,kliendigrupp_nimi);
 
 --triggerid, et vältida mõttetuid kirjeid andmebaasis
 --kui kustutatakse asutus, siis kaovad selle asutuse omanikud ja teenused
@@ -130,9 +144,13 @@ REFERENCING OLD AS vana
 BEGIN
   DELETE FROM kanal where teenus = vana.id;
   DELETE FROM teenus_has_regulatsioon where teenus_id = vana.id;
+  DELETE FROM moodik where teenus = vana.id;
+  DELETE FROM kliendigrupp_has_teenus where teenus_id=vana.id;
+  DELETE FROM teenus_has_riha where teenus_id=vana.id;
 END
 --trigger, kui kanal kustutatakse, kontrollib, kas sama teenusega on veel kanaleid. Kui enam pole, kustutab teenuse ära
-CREATE TRIGGER tg_kustuta_kanal AFTER DELETE ON kanal
+CREATE TRIGGER tg_ara_kustuta_kanal 
+AFTER DELETE ON kanal
 REFERENCING OLD AS vana FOR EACH ROW
 BEGIN
 DECLARE l_arv1 integer;
@@ -141,4 +159,6 @@ IF l_arv1 = 0 THEN
 DELETE FROM teenus WHERE Id = vana.teenus;
 END IF;
 END
+
+
 

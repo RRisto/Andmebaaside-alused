@@ -43,15 +43,15 @@ EAP INTEGER,
 GradeType VARCHAR(8));
 
 --andmed sisse
-INPUT INTO Person FROM 'C:\Users\Risto\Documents\Infotehnoloogia mitteinformaatikutele\Andmebaaside alused\edu\person.txt' FORMAT ASCII DELIMITED BY '\x09'
-INPUT INTO Faculty FROM 'C:\Users\Risto\Documents\Infotehnoloogia mitteinformaatikutele\Andmebaaside alused\edu\faculty.txt' FORMAT ASCII DELIMITED BY '\x09'
-INPUT INTO Registration FROM 'C:\Users\Risto\Documents\Infotehnoloogia mitteinformaatikutele\Andmebaaside alused\edu\registrations.txt' FORMAT ASCII DELIMITED BY '\x09'
-INPUT INTO Lecturer FROM 'C:\Users\Risto\Documents\Infotehnoloogia mitteinformaatikutele\Andmebaaside alused\edu\lecturers.txt' FORMAT ASCII DELIMITED BY '\x09'
-INPUT INTO Course FROM 'C:\Users\Risto\Documents\Infotehnoloogia mitteinformaatikutele\Andmebaaside alused\edu\course.txt' FORMAT ASCII DELIMITED BY '\x09'
+INPUT INTO Person FROM 'C:\Users\Risto\Documents\Infotehnoloogia mitteinformaatikutele\Andmebaaside alused\Andmebaaside-alused\edu\person.txt' FORMAT ASCII DELIMITED BY '\x09'
+INPUT INTO Faculty FROM 'C:\Users\Risto\Documents\Infotehnoloogia mitteinformaatikutele\Andmebaaside alused\Andmebaaside-alused\edu\faculty.txt' FORMAT ASCII DELIMITED BY '\x09'
+INPUT INTO Registration FROM 'C:\Users\Risto\Documents\Infotehnoloogia mitteinformaatikutele\Andmebaaside alused\Andmebaaside-alused\edu\registrations.txt' FORMAT ASCII DELIMITED BY '\x09'
+INPUT INTO Lecturer FROM 'C:\Users\Risto\Documents\Infotehnoloogia mitteinformaatikutele\Andmebaaside alused\Andmebaaside-alused\edu\lecturers.txt' FORMAT ASCII DELIMITED BY '\x09'
+INPUT INTO Course FROM 'C:\Users\Risto\Documents\Infotehnoloogia mitteinformaatikutele\Andmebaaside alused\Andmebaaside-alused\edu\course.txt' FORMAT ASCII DELIMITED BY '\x09'
 
 --foreign key
 --Person tabeli kirje kustutamisel kustutatakse tema 
-registreeringud ainetele
+--registreeringud ainetele
 ALTER TABLE Registration ADD CONSTRAINT
 fk_registration_person FOREIGN KEY (PersonId)
 REFERENCES Person (Id) ON DELETE 
@@ -95,7 +95,7 @@ SET NULL
 ON UPDATE CASCADE;
 --Person → Faculty
 ALTER TABLE Person ADD CONSTRAINT
-fk_person_faculty FOREIGN KEY (PersonsId)
+fk_person_faculty FOREIGN KEY (FacutltyId)
 REFERENCES Faculty (Id) ON DELETE 
 CASCADE
 ON UPDATE CASCADE;
