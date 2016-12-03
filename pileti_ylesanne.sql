@@ -25,7 +25,7 @@ select top 1 eesnimi+' '+  perenimi as nimi INTO nimi from (
 	from partii 
 	where turniir=turniir_id 
 	group by isik
-	union
+union
 	select must as isik, sum(datediff(minute, algushetk, lopphetk)) as aeg 
 	from partii 
 	where turniir=turniir_id 
