@@ -36,3 +36,33 @@ group by nimi
 order by sum(aeg) desc;
 RETURN nimi;
 END;
+
+--variant, mis näitab iga turniiri kohta, kes on min ajaga mängija
+select f.turniir, f.isik, f.ajasumma as minaeg from (
+--see osa leiab iga turniiri min aja
+   select turniir, min(ajasumma) as ajasumma from (
+		select isik, turniir, sum(aeg) as ajasumma from (
+			select valge as isik, sum(datediff(minute, algushetk, lopphetk)) as aeg , turniir
+			from partii  
+			group by isik, turniir
+		union
+		select must as isik, sum(datediff(minute, algushetk, lopphetk)) as aeg,turniir 
+			from partii   
+			group by isik, turniir) y
+		group by isik, turniir
+		order by turniir, ajasumma, isik) as tabel
+	group by turniir) as x 
+--ühendame tabelid
+inner join 
+--see osa leiab kõikide mängijate ajasumma igal turniiril
+	(select isik, turniir, sum(aeg) as ajasumma from (
+		select valge as isik, sum(datediff(minute, algushetk, lopphetk)) as aeg , turniir
+			from partii  
+			group by isik, turniir
+		union
+		select must as isik, sum(datediff(minute, algushetk, lopphetk)) as aeg,turniir 
+			from partii   
+			group by isik, turniir) y
+	group by isik, turniir) as f 
+--ühendame kaks tabelit turniiride järgi ja leiam read kus on min ajakulu
+on f.turniir = x.turniir and f.ajasumma = x.ajasumma;
