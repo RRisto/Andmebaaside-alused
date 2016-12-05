@@ -37,7 +37,8 @@ order by sum(aeg) desc;
 RETURN nimi;
 END;
 
---variant, mis näitab iga turniiri kohta, kes on min ajaga mängija
+--variant, mis näitab iga turniiri kohta korraga, kes on min ajaga mängija
+--koodi lühendamiseks oleks mõistlik protseduure/vaateid kasutada
 select f.turniir, f.isik, f.ajasumma as minaeg from (
 --see osa leiab iga turniiri min aja
    select turniir, min(ajasumma) as ajasumma from (
