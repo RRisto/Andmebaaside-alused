@@ -67,3 +67,18 @@ inner join
 	group by isik, turniir) as f 
 --ühendame kaks tabelit turniiride järgi ja leiam read kus on min ajakulu
 on f.turniir = x.turniir and f.ajasumma = x.ajasumma;
+
+
+--teine pileti ülesanne, ülesanne umbes midagi sellist: leida konkreetsel turniiril
+--konkreetses klubis mängijate paremusjärjestus punktide järgi, esitada lahendus protseduurina
+create procedure sp_edetabel (IN a_turniir int, IN a_klubi int)
+RESULT (Nimi VARCHAR(100), Tulemus double)
+BEGIN
+	select distinct m.isik_nimi, e.punkte
+	from v_edetabel as e, v_mangija as m
+	where e.turniir=a_turniir
+	and m.klubi_id=a_klubi
+	and e.mangija=m.isik_nimi
+	order by e.punkte desc;
+END
+
