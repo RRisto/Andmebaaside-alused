@@ -118,7 +118,7 @@ f_mangija_viike_turniiril(mangija, turniir) AS 'viike',f_mangija_kaotusi_turniir
 FROM v_punkt 
 JOIN isik 
 ON mangija=isik.id
-WHERE turniir = 41 GROUP BY turniir,mangija, perenimi, eesnimi
+WHERE turniir = turniir_id GROUP BY turniir,mangija, perenimi, eesnimi
 END
 --9. Luua indeks turniiride algusaegade peale.
 CREATE INDEX  ix_turniir_algus ON turniir(alguskuupaev DESC)
