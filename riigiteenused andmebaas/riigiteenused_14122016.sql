@@ -1,6 +1,6 @@
 CREATE TABLE asutus (
   nimi VARCHAR(100) NOT NULL,
-  ylemasutus VARCHAR(100) NOT NULL,
+  ylemasutus INTEGER NOT NULL,
   registrikood INTEGER NOT NULL PRIMARY KEY)
   
  CREATE TABLE  omanik (
@@ -93,37 +93,37 @@ CREATE TABLE teenus_has_riha (
 
 --andmed sisse
 --asutus
-INPUT INTO asutus FROM 'C:\Users\Risto\Documents\Infotehnoloogia mitteinformaatikutele\Andmebaaside alused\Andmebaaside-alused\riigiteenused andmebaas\asutus.csv' SKIP 1
+INPUT INTO asutus FROM 'C:\Users\Risto\Documents\Infotehnoloogia mitteinformaatikutele\Andmebaaside alused\Andmebaaside-alused\riigiteenused_final\asutus.csv' SKIP 1
 FORMAT ASCII DELIMITED BY ';'  (nimi, ylemasutus,registrikood);
 --omanik
-INPUT INTO omanik FROM 'C:\Users\Risto\Documents\Infotehnoloogia mitteinformaatikutele\Andmebaaside alused\Andmebaaside-alused\riigiteenused andmebaas\omanik.csv' SKIP 1
+INPUT INTO omanik FROM 'C:\Users\Risto\Documents\Infotehnoloogia mitteinformaatikutele\Andmebaaside alused\Andmebaaside-alused\riigiteenused_final\omanik.csv' SKIP 1
 FORMAT ASCII DELIMITED BY ';'  (isikukood, nimi,asutus);
 --teenus
-INPUT INTO teenus FROM 'C:\Users\Risto\Documents\Infotehnoloogia mitteinformaatikutele\Andmebaaside alused\Andmebaaside-alused\riigiteenused andmebaas\teenus.csv' SKIP 1
+INPUT INTO teenus FROM 'C:\Users\Risto\Documents\Infotehnoloogia mitteinformaatikutele\Andmebaaside alused\Andmebaaside-alused\riigiteenused_final\teenus.csv' SKIP 1
 FORMAT ASCII DELIMITED BY ';'  (nimi, kirjeldus,id, asutus, omanik);
 --kanal
-INPUT INTO kanal FROM 'C:\Users\Risto\Documents\Infotehnoloogia mitteinformaatikutele\Andmebaaside alused\Andmebaaside-alused\riigiteenused andmebaas\kanal.csv' SKIP 1
+INPUT INTO kanal FROM 'C:\Users\Risto\Documents\Infotehnoloogia mitteinformaatikutele\Andmebaaside alused\Andmebaaside-alused\riigiteenused_final\kanal.csv' SKIP 1
 FORMAT ASCII DELIMITED BY ';'  (teenus, link,tyyp);
 --moodik
-INPUT INTO moodik FROM 'C:\Users\Risto\Documents\Infotehnoloogia mitteinformaatikutele\Andmebaaside alused\Andmebaaside-alused\riigiteenused andmebaas\moodik.csv' SKIP 1
+INPUT INTO moodik FROM 'C:\Users\Risto\Documents\Infotehnoloogia mitteinformaatikutele\Andmebaaside alused\Andmebaaside-alused\riigiteenused_final\moodik.csv' SKIP 1
 FORMAT ASCII DELIMITED BY ';'  (teenus, kanalTyyp, aasta, ajakulu,maksumus,osutamistearv,rahulolu);
 --regulatsioon
-INPUT INTO regulatsioon FROM 'C:\Users\Risto\Documents\Infotehnoloogia mitteinformaatikutele\Andmebaaside alused\Andmebaaside-alused\riigiteenused andmebaas\regulatsioon.csv' SKIP 1
+INPUT INTO regulatsioon FROM 'C:\Users\Risto\Documents\Infotehnoloogia mitteinformaatikutele\Andmebaaside alused\Andmebaaside-alused\riigiteenused_final\regulatsioon.csv' SKIP 1
 FORMAT ASCII DELIMITED BY ';'  (link,tyyp);
 --teenus_has_regulatsioon
-INPUT INTO teenus_has_regulatsioon FROM 'C:\Users\Risto\Documents\Infotehnoloogia mitteinformaatikutele\Andmebaaside alused\Andmebaaside-alused\riigiteenused andmebaas\teenus_has_regulatsioon.csv' SKIP 1
+INPUT INTO teenus_has_regulatsioon FROM 'C:\Users\Risto\Documents\Infotehnoloogia mitteinformaatikutele\Andmebaaside alused\Andmebaaside-alused\riigiteenused_final\teenus_has_regulatsioon.csv' SKIP 1
 FORMAT ASCII DELIMITED BY ';'  (regulatsioonLink,teenus);
 --RIHA
-INPUT INTO riha FROM 'C:\Users\Risto\Documents\Infotehnoloogia mitteinformaatikutele\Andmebaaside alused\Andmebaaside-alused\riigiteenused andmebaas\riha.csv' SKIP 1
+INPUT INTO riha FROM 'C:\Users\Risto\Documents\Infotehnoloogia mitteinformaatikutele\Andmebaaside alused\Andmebaaside-alused\riigiteenused_final\riha.csv' SKIP 1
 FORMAT ASCII DELIMITED BY ';'  (viitenumber,nimi);
 --teenus_has_riha
-INPUT INTO teenus_has_riha FROM 'C:\Users\Risto\Documents\Infotehnoloogia mitteinformaatikutele\Andmebaaside alused\Andmebaaside-alused\riigiteenused andmebaas\teenus_has_riha.csv' SKIP 1
+INPUT INTO teenus_has_riha FROM 'C:\Users\Risto\Documents\Infotehnoloogia mitteinformaatikutele\Andmebaaside alused\Andmebaaside-alused\riigiteenused_final\teenus_has_riha.csv' SKIP 1
 FORMAT ASCII DELIMITED BY ';'  (teenus,viitenumber);
 --kliendigrupid
-INPUT INTO kliendigrupp FROM 'C:\Users\Risto\Documents\Infotehnoloogia mitteinformaatikutele\Andmebaaside alused\Andmebaaside-alused\riigiteenused andmebaas\kliendigrupp.csv' SKIP 1
+INPUT INTO kliendigrupp FROM 'C:\Users\Risto\Documents\Infotehnoloogia mitteinformaatikutele\Andmebaaside alused\Andmebaaside-alused\riigiteenused_final\kliendigrupp.csv' SKIP 1
 FORMAT ASCII DELIMITED BY ';'  (nimi,kirjeldus);
 --kliendigrupp has teenus
-INPUT INTO kliendigrupp_has_teenus FROM 'C:\Users\Risto\Documents\Infotehnoloogia mitteinformaatikutele\Andmebaaside alused\Andmebaaside-alused\riigiteenused andmebaas\kliendigrupp_has_teenus.csv' SKIP 1
+INPUT INTO kliendigrupp_has_teenus FROM 'C:\Users\Risto\Documents\Infotehnoloogia mitteinformaatikutele\Andmebaaside alused\Andmebaaside-alused\riigiteenused_final\kliendigrupp_has_teenus.csv' SKIP 1
 FORMAT ASCII DELIMITED BY ';'  (teenus,kliendigrupp);
 
 --triggerid, et vältida mõttetuid kirjeid andmebaasis
