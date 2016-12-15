@@ -83,8 +83,9 @@ BEGIN
 END
 --näidisülesanne õisis
 --Koosta päring: Suurim punktisumma. Näidata infot kujul:
---„Perenimi, Eesnimi ”, Punkte (kahe veeruna),  kelle punktisumma (üle kõikide partiide) on kõige suurem. Kui neid on mitu, siis see, kes on perenime järgi tähestikus eespool.
-select isik.perenimi +', '+isik.eesnimi as nimi, sum(punkt) as punkte 
+--„Perenimi, Eesnimi ”, Punkte (kahe veeruna),  kelle punktisumma (üle kõikide partiide) on kõige suurem. 
+--Kui neid on mitu, siis see, kes on perenime järgi tähestikus eespool.
+select top 1 isik.perenimi +', '+isik.eesnimi as nimi, sum(punkt) as punkte 
 from v_punkt 
 join isik on v_punkt.mangija=isik.id
 group by nimi
