@@ -163,7 +163,7 @@ END
 --SQL päringud
 --1. teha protseduur, mis annab omanike nimed koos asutuse nimedega, kes on etteantud aastal etteantud kanalis teenuse osutamiste arvu
 --mõõtnud
-CREATE PROCEDURE sp_omanik_rahulolu_mootnud(IN kanal_nimi VARCHAR(50), aastaarv INTEGER)
+CREATE PROCEDURE sp_omanik_osutamistearv_mootnud(IN kanal_nimi VARCHAR(50), aastaarv INTEGER)
 RESULT (omanik VARCHAR(50), asutus VARCHAR(100), kanal VARCHAR(50))
 BEGIN
 SELECT DISTINCT omanik.nimi, asutus.nimi, moodik.kanalTyyp FROM moodik 
@@ -175,7 +175,7 @@ moodik.aasta=aastaarv AND moodik.kanalTyyp=kanal_nimi
 ORDER BY asutus.nimi, omanik.nimi
 END
 --näide
-CALL sp_omanik_rahulolu_mootnud('Veebileht', 2014)
+CALL sp_omanik_osutamistearv_mootnud('Veebileht', 2014)
 --2.leida omanike järgi, mitmel % teenuste kanalites on mõõdetud rahulolu ja osutamiste arv
 --esmalt funktsioon, mis leiab omaniku teenuste kanalite arvu konkreetsel aastal
 CREATE FUNCTION f_omanik_teenuseid(omanik_id INTEGER, aastaarv INTEGER)

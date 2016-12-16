@@ -58,7 +58,7 @@ END;
 --6. Luua tabelit väljastav protseduur sp_infopump() See peab andma välja unioniga kokku panduna järgmised asjad (kasutades varemdefineeritud võimalusi):
 	--1) klubi nimi ja tema mängijate arv (kasutada funktsiooni f_klubisuurus)
 	--2) turniiri nimi ja tema jooksul tehtud mängude arv (kasutada group by)
-	--3) mängija nimi ja tema poolt mängitud partiide arv (kasutada f_nimi ja f_mangija_koormus) ning tulemus sorteerida nii, et klubide info oleks kõige ees, siis turniiride oma ja siis alles isikud. Iga grupi sees sorteerida nime järgi.
+	--3) mängija nimi ja tema	 poolt mängitud partiide arv (kasutada f_nimi ja f_mangija_koormus) ning tulemus sorteerida nii, et klubide info oleks kõige ees, siis turniiride oma ja siis alles isikud. Iga grupi sees sorteerida nime järgi.
 CREATE PROCEDURE sp_infopump()
 RESULT (nimi VARCHAR(50), arv INTEGER)
 BEGIN 
