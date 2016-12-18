@@ -177,7 +177,7 @@ END
 --näide
 CALL sp_omanik_osutamistearv_mootnud('Veebileht', 2014)
 --2.leida omanike järgi, mitmel % teenuste kanalites on mõõdetud rahulolu ja osutamiste arv
---esmalt funktsioon, mis leiab omaniku teenuste kanalite arvu konkreetsel aastal
+--esmalt funktsioon, konkreetsel omanikul konkreetsel aastal
 CREATE FUNCTION f_omanik_teenuseid(omanik_id INTEGER, aastaarv INTEGER)
 RETURNS INTEGER 
 BEGIN
@@ -190,7 +190,7 @@ moodik.aasta=aastaarv AND
 omanik.isikukood=omanik_id;
 RETURN teenuseid;
 END
---funktsioon, mis leiab teenuste kanalite arvu etteantud aastal, kus on osutamiste arv mõõdetus
+--funktsioon, mis leiab omaniku teenuste kanalite arvu etteantud aastal, kus on osutamiste arv mõõdetud
 CREATE FUNCTION f_omanik_osutamistearv(omanik_id INTEGER, aastaarv INTEGER)
 RETURNS INTEGER 
 BEGIN
@@ -222,8 +222,9 @@ ORDER BY omanik.nimi;
 END
 --näide
 CALL sp_asutus_omanik_osutamistearv('Maanteeamet', 2014)
---3. Milliste õigusaktidega seotud teenuse kanaleid on kõige rohkem mõõdetud (ehk milliste regulatsioonidega seotud
---teenustel on kõige rohkem ridu mõõdikute tabelis)
+--3. Kui palju on iga õigusaktiga seotud teenuse kanaleid on kõige rohkem mõõdetud (ehk milliste regulatsioonidega seotud
+--teenustel on kõige rohkem ridu mõõdikute tabelis). Kuvad õigusaktid, millega seotud teenusel on vähemalt üks 
+--mõõdetud kanal
 SELECT regulatsioonLink, COUNT(*) FROM moodik 
 JOIN teenus_has_regulatsioon on moodik.teenus=teenus_has_regulatsioon.teenus
 GROUP BY regulatsioonLink
