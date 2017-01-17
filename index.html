@@ -1,0 +1,457 @@
+<!DOCTYPE html>
+<html><head>
+<meta http-equiv="content-type" content="text/html; charset=windows-1257">
+	<title>Sybase SQL Anywhere 12 | Varundamine ja taaste</title>
+	<link rel="stylesheet" type="text/css" href="index_files/style.css">
+</head>
+
+<body>
+	<div id="main_wrapper">
+		<div id="header">
+			<h1>Andmebaaside varundamine ja taastamine</h1>
+			<h2>Sybase SQL Anywhere 12</h2>
+		</div>
+
+		<!-- MENU -->
+		<div id="menu">
+			<h3>Menüü</h3>
+			<a href="#info">Pane tähele...</a>
+			<a href="#image_backup">1. Andmebaasist kujutise tegemine ja taastamine</a>
+			<a href="#archived_backup">2. Andmebaasist pakitud varukoopia tegemine ja taastamine</a>
+			<a href="#incremental_backup">3. Andmebaasist diferentsiaalse varukoopia tegemine ja taastamine</a>
+			<a href="#automatic_backup">4. Varundamise automatiseerimine</a>
+			<a href="#tasks">5. ülesanded</a>
+		</div>
+
+		<!-- NB -->
+		<div id="info">
+			<h3>Pane tähele...</h3>
+			<ul>
+			<li>Kausta või faili tee märkimisel SQL päringutes kasutatakse 
+eraldajana kahte langevat kaldkriipsu nt "C:\\Users\\Public\\Desktop", 
+käsureal ühte nt "C:\Users\Roland\Desktop".</li>
+			<li>Tee tasub alati panna jutumärkide vahele. Kui tees esinevad tühikud ning jutumärke pole, tekib viga.</li>
+			</ul>
+		</div>
+
+		<!-- IMAGE BACKUP -->
+		<div id="image_backup" class="section">
+			<h3>1. Andmebaasi kujutis</h3>
+			<div class="intro">
+				Andmebaasi kujutis on koopia andmebaasi andme- ja logifailist. Nende failide abil on vajadusel võimalik andmebaas taastada.
+			</div>
+
+
+			<h4>1.1 Varundamine SQL päringut kasutades</h4>
+			<div class="explanation">
+				Käivitage Interactive SQL-i abil järgnev päring. Tulemuseks on teie poolt määratud asukohta kopeeritud andmefail (<div class="variable">andembaasiNimi</div>.db) ning logifail (<div class="variable">andembaasiNimi</div>.log).
+			</div>
+			<div class="code">
+				BACKUP DATABASE<br>
+				DIRECTORY
+				<div class="variable">tee-varukoopia-asukohta</div>;
+			</div>
+			<div class="explanation">Kui soovite teha varukoopia ainult andmefailist:</div>
+			<div class="code">
+				BACKUP DATABASE<br>
+				DIRECTORY
+				<div class="variable">tee-varukoopia-asukohta</div>
+				<br>
+				DBFILE ONLY;
+			</div>
+			<div class="explanation">Kui soovite teha varukoopia ainult transaktsioonide logist:</div>
+			<div class="code">
+				BACKUP DATABASE<br>
+				DIRECTORY
+				<div class="variable">tee-varukoopia-asukohta</div>
+				<br>
+				TRANSACTION LOG ONLY;
+			</div>
+
+
+			<h4>1.2 Varundamine Sybase Centralit kasutades</h4>
+			<div class="explanation">Sybase Centralil on varundamise viisard, mis aitab eelpool tehtud päringud graafilist kasutajaliidest kasutades kokku panna.</div>
+			<ol>
+				<li>Valige menüüribalt
+					<div class="italic">Tools</div> &#8594; <div class="italic">SQL Anywhere 12</div> &#8594; <div class="italic">Create Backup Images…</div>.
+				</li>
+				<li>Kui avaneb aken pealkirjaga "Welcome", siis lugege läbi tutvustav tekst ning vajutage <div class="italic">Next</div>. Kui avanes aken pealkirjaga "Select a Database", siis vaadake järgmist punkti.
+				</li>
+				<li>Valige andmebaas, millest soovite varukoopiat teha ja vajutage <div class="italic">Next</div>.
+				</li>
+				<li>Avaneb aken pealkirjaga "Specify an Image Directory". Valige <div class="italic">Browse…</div>
+ nuppu kasutades kaust, kuhu soovite varukoopia salvestada ning märkige 
+allpool asuvas valikus, milliseid faile te varundada soovite. Vajutage <div class="italic">Next</div>.
+				</li>
+				<li>Avanevas aknas on võimalik valida, mida transaktsioonide logiga 
+pärast varundamist tehakse. Kontrollige, et oleks valitud "Continue to 
+use same transaction log", mis jätab logifaili muutmata. Vajutage <div class="italic">Next</div>.
+				</li>
+				<li>Nüüd näete viisardi kokkupandud päringut. Midagi siin aknas muuta ei saa. Vajutage <div class="italic">Finish</div> ning teie poolt määratud kausta tehakse andmebaasi varukoopia.
+				</li>
+			</ol>
+
+			<h4>1.3 Taastamine operatsioonisüsteemi vahendeid kasutades</h4>
+			<div class="explanation">
+				Kopeerige (<div class="italic">copy-paste</div>) andmefail (*.db) 
+ja/või logifail (*.log) kausta, kus soovite andmebaaside 
+juhtimissüsteemi faile hoida. Näiteks C:\Users\Public\Documents\SQL 
+Anywhere 12\valitudKaust. Sellega ongi andmebaas taastatud.
+			</div>
+		</div>
+
+		<!-- ARCHIVED BACKUP -->	
+		<div id="archived_backup" class="section">
+			<h3>2. Andmebaasi pakitud varukoopia</h3>
+			<div class="intro">
+				Pakitud varukoopia koosneb ühest või mitmest failist, mida on vaja 
+andmebaasi taastamiseks. Selle maht on väiksem ning varukoopia tegemise 
+kiirus suurem kui andmebaasist kujutise tegemise korral. 
+			</div>
+			<h4>2.1 Varundamine SQL päringut kasutades</h4>
+			<div class="explanation">
+				Pakitud varukoopia tegemiseks käivitage Interactive SQL-i abil 
+järgnev päring. Tulemuseks on teie poolt määratud asukohta kopeeritud 
+varukoopia (<div class="variable">faili-nimi</div>.1).
+			</div>
+			<div class="code">
+				BACKUP DATABASE<br>
+				TO
+				<div class="variable">kausta-absoluutne-tee</div>\\<div class="variable">faili-nimi</div>;
+			</div>
+			<h4>2.2 Varundamine Sybase Centralit kasutades</h4>
+			<div class="explanation">Sybase Centralil on varundamise viisard, mis aitab eelpool tehtud päringu graafilist kasutajaliidest kasutades kokku panna.</div>
+			<ol>
+				<li>Valige menüüribalt <div class="italic">Tools</div> &#8594; <div class="italic">SQL Anywhere 12</div> &#8594;	<div class="italic">Backup Database…</div>.
+				</li>
+				<li>Kui avaneb aken pealkirjaga "Welcome", siis lugege läbi tutvustav tekst ning vajutage <div class="italic">Next</div>. Kui avanes aken pealkirjaga "Select a Database", siis vaadake järgmist punkti.
+				</li>
+				<li>Valige andmebaas, millest soovite varukoopiat teha ja vajutage <div class="italic">Next</div>.
+				</li>
+				<li>Avaneb aken pealkirjaga "Choose an Archive Location." Veenduge, 
+et varukoopia salvestamise asukohaks on määratud "On disk, in the 
+following file:". Valige <div class="italic">Browse…</div> nuppu kasutades kaust, kuhu soovite varukoopia salvestada ning sisestage failile nimi (ilma laiendita). Vajutage <div class="italic">Next</div>.
+				</li>
+				<li>Avanevas aknas on võimalik varukoopiale lisada kommentaar. Vajutage <div class="italic">Next</div>.
+				</li>
+				<li>Nüüd näete viisardi kokkupandud päringut. Midagi siin aknas muuta ei saa. Vajutage <div class="italic">Finish</div> ning teie poolt määratud kausta tehakse andmebaasi varukoopia.
+				</li>
+			</ol>
+
+			<h4>2.3 Taastamine SQL päringut kasutades</h4>
+			<div class="explanation">Käivitage järgnev kood. Pane tähele, et <div class="variable">andmefaili-absoluutne-tee</div> peab lõppema soovitud andmefaili nimega (nt 'C:\\Users\\Public\\Documents\\SQL Anywhere 12\\valitudKaust\\andmefail.db' ) ning <div class="variable">varukoopia-absoluutne-tee</div> lõpus olev varukoopia fail peab olema ilma laiendita (nt 'C:\\Users\\Public\\Desktop\\varukoopia'). </div>
+			<div class="code">
+				RESTORE<br>
+				DATABASE <div class="variable">andmefaili-absoluutne-tee</div><br>
+				FROM <div class="variable">varukoopia-absoluutne-tee</div>;
+			</div>
+
+			<h4>2.4 Taastamine Sybase Centralit kasutades</h4>
+			<div class="explanation">
+				Kasutame Sybase Centrali taastamise viisardit.
+			</div>
+			<ol>
+				<li>Avamiseks vajutage menüüribal <div class="italic">Tools</div> &#8594; <div class="italic">SQL Anywhere 12</div> &#8594;	<div class="italic">Restore Database…</div>.
+				</li>
+				<li>Kui avaneb aken pealkirjaga "Welcome", siis lugege läbi tutvustav tekst ning vajutage <div class="italic">Next</div>. Kui avanes aken pealkirjaga "Select a Server", siis vaadake järgmist punkti.
+				</li>
+				<li>Veenduge, et valitud on "Restore a database on this computer" ning vajutage <div class="italic">Next</div>.
+				</li>
+				<li>Avaneb aken pealkirjaga "Choose an Archive." Veenduge, et 
+varukoopia asukohaks on määratud "On disk, in the following file:". 
+Valige <div class="italic">Browse…</div> nuppu kasutades varukoopia, mida soovite taastamiseks kasutada (nt varukoopia.1). Vajutage <div class="italic">Next</div>.
+				</li>
+				<li><div class="italic">Browse…</div> nuppu kasutades valige kaust, kuhu soovite varukoopia taastada ning sisestage faili nimi (nt taastatud.db). Vajutage <div class="italic">Next</div>.
+				</li>
+				<li>Nüüd näete viisardi kokkupandud päringut. Midagi siin aknas muuta ei saa. Vajutage <div class="italic">Finish</div> ning teie poolt valitud varukoopia taastatakse.
+				</li>
+			</ol>
+		</div>
+
+		<!-- INCREMENTAL BACKUP -->	
+		<div id="incremental_backup" class="section">
+			<h3>3. Andmebaasi diferentsiaalne varukoopia</h3>
+			<div class="intro">
+				Diferentsiaalne varukoopia sisaldab ainult neid andmeid, mis on 
+muutunud pärast viimast täieliku või diferentsiaalse varukoopia 
+tegemist. Selle tõttu on diferentsiaalse varukoopia maht väiksem ning 
+koostamine kiirem kui täieliku varukoopia puhul. Seda tüüpi varukoopia 
+annab märgatava võidu kiiruses ja mahus, kui andmebaas on suur, kuid 
+muudatusi tehakse vähe. Taastamine on diferentsiaalset varukoopiat 
+kasutades aeglasem, kuna võib juhtuda, et ühte rida tuleb mitu korda 
+uuendada.<br><br>
+				 Esimesel varundamisel tehakse koopia andme- ja logifailist ning 
+kustutatakse logifail ja alustatakse uue kirjutamist. Järgmistel 
+varundamistel tehakse koopia ainult logifailist, mis sisaldab pärast 
+eelmist varundamist tehtud muutusi, kustutatakse logi ja alustatakse 
+jälle uue logi kirjutamist.<br>
+			</div>
+			<h4>3.1 Varundamine SQL päringut kasutades</h4>
+			<div class="explanation">
+				Diferentsiaalse varukoopia tegemine SQL päringut kasutades on 
+sarnane andmebaasist kujutise tegemisele. Esimesel varundamisel teeme 
+koopia andme- ning logifailist ja järgmistel kordadel ainult 
+logifailist. Pärast igat varundust logifail kustutatakse. Käivitage 
+järgmine päring.
+			</div>
+			<div class="code">
+				BACKUP DATABASE<br>
+				DIRECTORY <div class="variable">tee-varukoopia-asukohta</div> <br>
+				[TRANSACTION LOG ONLY]<br>
+				TRANSACTION LOG TRUNCATE;
+			</div>
+
+			<h4>3.2 Varundamine Sybase Centralit kasutades</h4>
+			<div class="explanation">
+				Diferentsiaalse varukoopia tegemine Sybase Centralit kasutades on sarnane andmebaasist kujutise tegemisele.
+			</div>
+			<ol>
+				<li>Valige menüüribalt <div class="italic">Tools</div> &#8594; <div class="italic">SQL Anywhere 12</div> &#8594; <div class="italic">Create Backup Images…</div>.
+				</li>
+				<li>Kui avaneb aken pealkirjaga "Welcome", siis lugege läbi tutvustav tekst ning vajutage <div class="italic">Next</div>. Kui avanes aken pealkirjaga "Select a Database", siis vaadake järgmist punkti.
+				</li>
+				<li>Valige andmebaas, millest soovite varukoopiat teha ja vajutage <div class="italic">Next</div>.
+				</li>
+				<li>Avaneb aken pealkirjaga "Specify an Image Directory". Valige <div class="italic">Browse…</div>
+ nuppu kasutades kaust, kuhu soovite varukoopia salvestada, ning märkige
+ allpool asuvas valikus esimesel varundamisel "All database files and 
+the transaction log file" ja järgmistel kordadel "Transaction log file 
+only". Vajutage <div class="italic">Next</div>.
+				</li>
+				<li>Avanevas aknas on võimalik valida, mida transaktsioonide logiga 
+pärast varundamist tehakse. Märkige valik "Truncate the transaction 
+log", mille tagajärjel logifail kustutatakse ning alustatakse uue 
+kirjutamist. Vajutage <div class="italic">Next</div>.
+				</li>
+				<li>Nüüd näete viisardi kokkupandud päringut. Midagi siin aknas muuta ei saa. Vajutage <div class="italic">Finish</div> ning teie poolt määratud kausta tehakse andmebaasi varukoopia.
+				</li>
+			</ol>
+		<h4>3.3 Taastamine serveriparameetrit -ad kasutades</h4>
+			<div class="explanation">
+				Esmalt tuleb kopeerida varundatud andmefail kausta, kus soovite 
+andmebaasi andmefaile hoida. Seejärel tuleb andmebaasi server tööle 
+panna kasutades -ad parameetrit, mille väärtuseks on absoluutne tee 
+kaustale, kus asuvad diferentsiaalse varundamise käigus tehtud koopiad 
+logifailidest (kasuta käsurida). Tulemuseks ongi taastatud andmebaas. 
+Parameeteri -ad kasutamine ütleb, et server rakendaks kõikides 
+logifailides olevad muutused õiges järjekorras.
+				</div>
+				<div class="code">
+					dbeng12 "<div class="variable">tee-andmefailini</div>" -ad "<div class="variable">tee-logide-kaustani</div>"
+				</div>
+		</div>
+
+		<!-- AUTOMATIC BACKUP -->	
+		<div id="automatic_backup" class="section">
+			<h3>4. Varundamise automatiseerimine</h3>
+			<div class="intro">
+				Andmebaaside administraatoril on võimalik määrata, millal, millest, 
+kuidas ja kui tihti andmebaaside juhtimissüsteem varukoopia teeb, nii et
+ ta ei pea ise iga nädal, iga päev või iga tund varundamise päringut 
+käivitama.
+			</div>
+			<h4>4.1 Sybase Centrali viisard sündmuste ja planeerijate loomiseks</h4>
+			<div class="explanation">
+			Varundamise automatiseerimiseks võib kasutada sündmuste (events) ning
+ planeerija (scheduler) võimalusi. Sündmusi kasutades on võimalik 
+defineerida mingi tegevus näiteks diferentsiaalne varundamine või 
+täieliku varukoopia tegemine ning planeerija abil saab määrata, kui 
+tihti ja mis ajal seda sündmust käivitatakse. Automatiseerime näiteks 
+diferentsiaalse varundamise, mis toimub iga päev kell 1 öösel.
+			</div>
+			<ol>
+				<li>Valige andmebaas, millega töötada soovite, ning avage selle 
+andmebaasi "Contents" vaade (Vaade, kus saate valida, kas soovite edasi 
+töötada tabelitega, vaadetega, indeksitega, trigeritega jne.).
+				</li>
+				<li>Valige, et soovite töötada sündmustega (Events). Avaneb aken "Events".
+				</li>
+				<li>Tehke kuskil aknas parem-klikk ning ilmunud menüüst valige <div class="italic">New</div> &#8594; <div class="italic">Event…</div>.
+				</li>
+				<li>Avaneb aken pealkirjaga "Welcome". Sisestage sündmuse nimi (valige ise) ja vajutage <div class="italic">Next</div>.
+				</li>
+				<li>Avanevas aknas on võimalik valida, kuidas teie varsti loodavat sündmust käivitatakse. Valige "Scheduled" ja vajutage <div class="italic">Next</div>.
+				</li>
+				<li>Nagu sündmusele tuleb ka planeerijale anda nimi. Sisestage see ja vajutage <div class="italic">Next</div>.
+				</li>
+				<li>Avaneb aken "Select Time and Date". Määrake sündmuse käivitamise ajaks ("Trigger the event at") 01:00 ning vajutage <div class="italic">Next</div>. Kuupäev jääb valimata.
+				</li>
+				<li>Avanevas aknas saab määrata, millise perioodi tagant sündmus 
+käivitatakse. Määrake selleks ajaks ("Trigger the event every") 24 tundi
+ ja vajutage <div class="italic">Next</div>.
+				</li>
+				<li>Avaneb aken pealkirjaga "Specify Options". Veenduge, et valikud 
+"Enable this event" ning "Execute at all databases" oleks valitud ja 
+vajutage <div class="italic">Next</div>.
+				</li>
+				<li>Avanevas aknas on võimalik sündmusele lisada mingi kommentaar, mis näiteks seletab, milleks seda sündmust vaja on. Vajutage <div class="italic">Next</div>.
+				</li>
+				<li>Avanevas aknas on näha viisardi genereeritud SQL päring, kus on kirjas, mis event, mis ajal käima panna tuleb. Vajutage <div class="italic">Finish</div>.
+				</li>
+				<li>Nüüd avaneb aken, kus tuleb kirjeldada sündmus, milleks antud 
+olukorras on diferentsiaalse varukoopia tegemine. Eeldame, et 
+andmefailist on varukoopia juba tehtud, nii et piisab ainult logi 
+varundamisest. Sisestage <div class="code-in-text">BEGIN</div> ja <div class="code-in-text">END</div> vahele järgnev päring.
+					<div class="code">
+						BACKUP DATABASE<br>
+						DIRECTORY <div class="variable">tee-varukoopia-asukohta</div>  <br>
+						TRANSACTION LOG TRUNCATE<br>
+						TRANSACTION LOG RENAME MATCH;
+					</div>
+					<div class="code-in-text">TRANSACTION LOG RENAME MATCH</div> ütleb andmebaaside juhtimissüsteemile, et iga varukoopia salvestataks erineva nimega (Kujul <div class="italic">YYMMDDxx</div>.log, kus <div class="italic">YYMMDD</div> tähistab kuupäeva ning <div class="italic">xx</div> on loendur.). Vaikimisi antakse failile sama nimi, mis andmebaasil ehk igal käivitamisel kirjutataks eelmine varukoopia üle.
+				</li>
+			</ol>
+		<h4>4.2 SQL päring sündmuste ja planeerijate loomiseks</h4>
+		<div class="explanation">
+			Sybase Centrali viisard aitab meil enamiku tööst ära teha 
+graafiliselt, kuid sama asja on võimalik teha SQL päringut käsitsi  
+koostades. Järgnevalt on toodud SQL päring, mis teeb täpselt seda sama, 
+mida eelmises punktis Cybase Centrali abil kokkupandud päring.
+		</div>
+			<div class="code">
+				CREATE EVENT <div class="variable">sündmuse-nimi</div><br>
+				SCHEDULE<br>
+					START TIME '1:00 AM' EVERY 24 HOURS<br>
+				HANDLER<br>
+				BEGIN<br>
+					BACKUP DATABASE DIRECTORY <div class="variable">tee-varukoopia-asukohta</div><br>
+					TRANSACTION LOG ONLY<br>
+					TRANSACTION LOG RENAME MATCH<br>
+				END;
+
+			</div>
+			<h4>4.3 Varundamine hooldusplaani kasutades</h4>
+			<div class="explanation">
+				Varundamise automatiseerimiseks võib kasutada ka hooldusplaani 
+(maintenance plan). Hooldusplaani täitmine käivitatakse administraatori 
+poolt määratud ajal ning selle käigus täidetakse vähemalt üks 
+järgmistest ülesannetest:
+				<ul>
+					<li>kontrollitakse, et andmebaasis ei oleks vigu,</li>
+					<li>varundatakse andmebaas,</li>
+					<li>genereeritakse raport plaani täitmise kohta.</li>
+				</ul>
+	Hooldusplaani loomiseks saab kasutada Sybase Centrali hooldusplaani 
+loomise viisardit (Create Maintenance Plan Wizard). Korraldage 
+automaatne varundamine hooldusplaani kasutades, nii et diferentsiaalne 
+varundamine toimuks iga päev kell 1:00 öösel.
+			</div>
+			<ol>
+				<li>Valige andmebaas, millega töötada soovite, ning avage selle 
+andmebaasi "Contents" vaade (Vaade, kus saate valida, kas soovite edasi 
+töötada tabelitega, vaadetega, indeksitega, trigeritega jne.).
+				</li>
+				<li>Valige, et soovite töötada hooldusplaanidega (Maintenance Plans). Avaneb aken "Maintenance Plans".
+				</li>
+				<li>Tehke kuskil aknas parem-klikk ning ilmunud menüüst valige <div class="italic">New</div> &#8594; <div class="italic">Maintenance Plan…</div>.
+				</li>
+				<li>Avaneb aken pealkirjaga "Welcome". Sisestage plaanile nimi ning vajutage <div class="italic">Next</div>.
+				</li>
+				<li>Avanevas aknas tuleb valida kuupäev ja aeg, kuna plaani esimest 
+korda täidetakse ning määrata, kui tihti seda korrata. Tehke nii, et 
+hooldusplaani täitmine hakkaks tänasest ning toimuks kell 1:00 öösel iga
+ 24 tunni tagant. Vajutage <div class="italic">Next</div>.
+				</li>
+				<li>Avaneb aken pealkirjaga "Specify Days of the Week or Month". 
+Eemaldage linnuke valiku "Run the maintenance plan on the following:" 
+eest. Vajutage <div class="italic">Next</div>.
+				</li>
+				<li>Avanevas aknas on võimalik määrata, kas soovite, et enne 
+varukoopia tegemist kontrollitakse, kas andmebaasis on vigu või mitte. 
+Võite siin ise otsustada, mida teha. Vajutage <div class="italic">Next</div>.
+				</li>
+				<li>Avaneb aken pealkirjaga "Include a Backup". Pange linnuke valiku
+ "Include a backup of the database in this maintenance plan" ette, 
+valige kaust, kuhu andmed salvestada ning diferentsiaalne varundamine (<div class="italic">Incremental backup</div>). Vajutage <div class="italic">Next</div>.
+				</li>
+				<li>Avanev aken võimaldab sisestada SQL päringuid, mida täidetakse 
+kas enne andmebaasi kontrollimist (enne varukoopia tegemist) või pärast 
+varukoopia tegemist. Vajutage <div class="italic">Next</div>.
+				</li>
+				<li>Avaneb aken pealkirjaga "Specify Reporting Options". Siin on 
+võimalik valida, mida tehakse plaani täitmist näitava raportiga. 
+Vajutage <div class="italic">Finish</div>.
+				</li>
+			</ol>
+		</div>
+
+
+		<!--TASKS-->
+		<div id="tasks" class="section">
+			<h3 id="tasks" class="section">5. ülesanded</h3>
+			<div class="explanation">
+				ülesandeid lahendades jälgi, et sa ei kustutaks ära 
+originaalandmebaasi andme- ega logifaile. Tee Sybase Centrali vahendeid 
+kasutades originaalandmebaasist varukoopia (<a href="#image_backup">vaata punkt 1.2</a>) ning seejärel taasta see enda valitud kausta (<a href="#image_backup">vaata punkt 1.3</a>) ning ühenda Sybase Centraliga (<div class="italic">Connections &#8594; Connect with SQL Anywhere 12...</div> ). Kõik järgmised ülesanded tee selle taastatud andmebaasi peal.<br> Vali ise kaust, kuhu oma varukoopiad salvestad.
+			</div>
+			<h4>5.1 ülesanded, mis lubavad varundamise/taastamise meetodid ise valida</h4>
+			<ol>
+				<li>
+					Tee andmebaasist pakitud varukoopia (<a href="#archived_backup">vaata punkt 2</a>).
+ Mis on erinevus pakitud varukoopia ning andmebaasi kujutise vahel? 
+Taasta andmebaas enda valitud kausta ning ühenda Sybase Centraliga.
+				</li>
+				<li>
+					Tee andmebaasist diferentsiaalne varukoopia (<a href="#incremental_backup">vaata punkt 3</a>). Selle jaoks:
+					<ul>
+						<li>tee varukoopia ainult andmefailist (*.db) ning kustuta logifail (*.log);</li>
+						<li>muuda andmebaasis midagi;</li>
+						<li>tee varukoopia ainult logi failist ning seejärel kustuta see;</li>
+						<li>taasta andmebaas ja vaata, kas tehtud muutus kajastub taastatud andmebaasis.</li>
+					</ul>
+				</li>
+				<li>Automatiseeri diferentsiaalne varundamine (<a href="#automatic_backup">vaata punkt 4</a>). Tee nii, et varukoopia tegemine käivitataks iga 20 minuti tagant.</li>
+			</ol>
+			<h4>5.2 ülesanded, kus on varundamise/taastamise meetodid ette antud</h4>
+			<ol>
+				<li>Muuda midagi andmebaasis. Tee andmebaasist, SQL päringut kasutades, kujutis (<a href="#image_backup">vaata punkt 1</a>)
+ ning taasta see operatsioonisüsteemi vahendeid kasutades. ühenda 
+andmebaas Sybase Centraliga ning vaata, kas muutus kajastub taastatud 
+andmebaasis. </li>
+				<li>Tee, SQL päringut kasutades, varukoopia ainult andmebaasi logifailist.</li>
+				<li>Tee, SQL päringut kasutades, varukoopia ainult andmebaasi andmefailist.</li>
+				<li>Muuda midagi andmebaasis. Tee andmebaasist, Sybase Centralit kasutades, kujutis (<a href="#image_backup">vaata punkt 1</a>)
+ ning taasta see operatsioonisüsteemi vahendeid kasutades. ühenda 
+andmebaas Sybase Centraliga ning vaata, kas muutus kajastub taastatud 
+andmebaasis. </li>
+				<li>Muuda midagi andmebaasis. Tee andmebaasist, SQL päringut kasutades, pakitud varukoopia (<a href="#archived_backup">vaata punkt 2</a>)
+ ning taasta see Sybase Centralit kasutades. ühenda andmebaas Sybase 
+Centraliga ning vaata, kas muutus kajastub taastatud andmebaasis. </li>
+				<li>Muuda midagi andmebaasis. Tee andmebaasist, Sybase Centralit kasutades, pakitud varukoopia (<a href="#archived_backup">vaata punkt 2</a>)
+ ning taasta see SQL päringut kasutades. ühenda andmebaas Sybase 
+Centraliga ning vaata, kas muutus kajastub taastatud andmebaasis. </li>
+				<li>Tee andmebaasist, Sybase Centralit kasutades, diferentsiaalne varukoopia (<a href="#incremental_backup">vaata punkt 3</a>). Selle jaoks:
+					<ul>
+						<li>tee varukoopia ainult andmefailist (*.db) ning kustuta logifail (*.log);</li>
+						<li>muuda andmebaasis midagi;</li>
+						<li>tee varukoopia ainult logifailist ning seejärel kustuta see;</li>
+						<li>taasta andmebaas ja vaata, kas tehtud muutus kajastub taastatud andmebaasis.</li>
+					</ul>
+				</li>
+				<li>Tee andmebaasist, SQL päringut kasutades, diferentsiaalne varukoopia (<a href="#incremental_backup">vaata punkt 3</a>). Selle jaoks:
+					<ul>
+						<li>tee varukoopia ainult andmefailist (*.db) ning kustuta logifail (*.log);</li>
+						<li>muuda andmebaasis midagi;</li>
+						<li>tee varukoopia ainult logifailist ning seejärel kustuta see;</li>
+						<li>taasta andmebaas ja vaata, kas tehtud muutus kajastub taastatud andmebaasis.</li>
+					</ul>
+				</li>
+				<li>Sybase Central võimaldab logifaili teisendada .sql failiks. Uuri
+ välja, kuidas seda teha, vali üks logifail ning teisenda see .sql 
+failiks. Vaata genereeritud .sql faili sisu.</li>
+				<li>
+					Kasuta Sybase Centrali sündmuste ja planeerijate loomise viisardit, et automatiseerida diferentsiaalne varundamine (<a href="#automatic_backup">vaata punkt 4</a>). Tee nii, et varukoopia tegemine käivitataks iga 20 minuti tagant.
+				</li>
+				<li>
+					Kasuta SQL päringut, et automatiseerida diferentsiaalne varundamine (<a href="#automatic_backup">vaata punkt 4</a>). Tee nii, et varukoopia tegemine käivitataks iga 20 minuti tagant.
+				</li>
+				<li>
+					Kasuta hooldusplaani, et automatiseerida diferentsiaalne varundamine (<a href="#automatic_backup">vaata punkt 4</a>). Tee nii, et varukoopia tegemine käivitataks iga 20 minuti tagant.
+				</li>
+			</ol>
+		</div>
+	</div>
+
+
+
+</body></html>

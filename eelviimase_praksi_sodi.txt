@@ -1,0 +1,40 @@
+--etteantud turniiri kõige kauem aega läinud mängija
+
+select eesnimi, perenimi,isik, sum(aeg) from (
+select must as isik, sum(datediff(minute,algushetk,lopphetk)) as aeg from partii group by isik, partii.turniir
+union 
+select valge as isik, sum(datediff(minute,algushetk,lopphetk)) as aeg from partii group by isik, partii.turniir) as tabel join isik on tabel.isik=isik.id 
+group by isik,eesnimi, perenimi
+
+select isik, turniir, max(aeg) as aeg from (
+select must as isik,turniir, sum(datediff(minute,algushetk,lopphetk)) as aeg from partii group by isik, partii.turniir
+union 
+select valge as isik, turniir, sum(datediff(minute,algushetk,lopphetk)) as aeg from partii group by isik, partii.turniir) as tabel join isik on tabel.isik=isik.id 
+group by isik,turniir 
+
+
+select valge, sum(datediff(minute, algushetk, lopphetk)) from partii where turniir=47 group by valge
+
+
+select top 1  isik , sum(aeg) from (
+select valge as isik, sum(datediff(minute, algushetk, lopphetk)) as aeg from partii where turniir=47 group by isik
+union
+select must as isik, sum(datediff(minute, algushetk, lopphetk)) as aeg from partii where turniir=47 group by isik
+) as tabel
+group by isik order by sum(aeg) desc;
+
+
+select top 1 isik,eesnimi, perenimi, sum(aeg) from (
+select valge as isik, sum(datediff(minute, algushetk, lopphetk)) as aeg from partii where turniir=47 group by isik
+union
+select must as isik, sum(datediff(minute, algushetk, lopphetk)) as aeg from partii where turniir=47 group by isik
+) as tabel join isik on isik.id=tabel.isik
+group by isik, eesnimi, perenimi order by sum(aeg) desc;
+
+
+select top 1 eesnimi+' '+  perenimi as nimi from (
+select valge as isik, sum(datediff(minute, algushetk, lopphetk)) as aeg from partii where turniir=47 group by isik
+union
+select must as isik, sum(datediff(minute, algushetk, lopphetk)) as aeg from partii where turniir=47 group by isik
+) as tabel join isik on isik.id=tabel.isik
+group by nimi order by sum(aeg) desc;
